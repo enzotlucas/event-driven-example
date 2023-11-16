@@ -1,5 +1,7 @@
-﻿using Example.EventDriven.Domain.Gateways.Logger;
+﻿using Example.EventDriven.Domain.Gateways.Event;
+using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Gateways.MemoryCache;
+using Example.EventDriven.Infrastructure.Event;
 using Example.EventDriven.Infrastructure.Logger;
 using Example.EventDriven.Infrastructure.MemoryCache;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,8 @@ namespace Example.EventDriven.Infrastructure
 
         private static IServiceCollection AddEventManager(this IServiceCollection services)
         {
+            services.AddScoped<IEventManager, RabbitMqManager>();
+
             return services;
         }
 

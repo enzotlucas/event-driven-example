@@ -1,10 +1,14 @@
-﻿namespace Example.EventDriven.Domain.Entitites
+﻿using Example.EventDriven.Domain.ValueObjects;
+
+namespace Example.EventDriven.Domain.Entitites
 {
     public class ProcessEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public ProcessStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime LastUpdatedAt { get; set; }
     }
 }

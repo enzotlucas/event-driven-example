@@ -4,7 +4,7 @@ namespace Example.EventDriven.Infrastructure.Event
 {
     public class RabbitMqManager : IEventManager
     {
-        public Task<Guid> SendEvent(BaseEvent genericEvent, CancellationToken cancellationToken)
+        public Task<Guid> SendEvent(GenericEvent genericEvent, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

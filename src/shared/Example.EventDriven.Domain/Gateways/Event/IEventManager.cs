@@ -2,6 +2,6 @@
 {
     public interface IEventManager
     {
-        Task<Guid> SendEvent(BaseEvent genericEvent, CancellationToken cancellationToken);
+        Task<Guid> SendEvent(GenericEvent genericEvent, CancellationToken cancellationToken);
     }
 }

@@ -1,5 +1,4 @@
-﻿using Example.EventDriven.Domain.Entitites;
-using Example.EventDriven.Domain.Gateways.Event.Events;
+﻿using Example.EventDriven.Application.SendEvent.Boundaries;
 using Mapster;
 
 namespace Example.EventDriven.Application.CreateProccess.Boundaries
@@ -8,11 +7,10 @@ namespace Example.EventDriven.Application.CreateProccess.Boundaries
     {
         public static void Add()
         {
-            TypeAdapterConfig<CreateProccessRequest, ProcessEntity>
-                .NewConfig();
-
-            TypeAdapterConfig<ProcessEntity, CreateProcessEvent>
-                .NewConfig();
+            TypeAdapterConfig<CreateProccessRequest, SendEventRequest>
+                .NewConfig()
+                .Map(destination => destination.OperationName, source => nameof(CreateProccessRequest))
+                .Map(destination => destination.Value, source => source);
         }
     }
 }

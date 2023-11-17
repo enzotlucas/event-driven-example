@@ -1,6 +1,7 @@
 ﻿using Example.EventDriven.Application.CreateProccess;
 using Example.EventDriven.Application.CreateProccess.Boundaries;
 using Example.EventDriven.Application.GetRequestStatus;
+using Example.EventDriven.Application.SendEvent.Boundaries;
 using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ namespace Example.EventDriven.Application
 
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
+            SendEventMapper.Add();
             CreateProcessMapper.Add();
 
             TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());

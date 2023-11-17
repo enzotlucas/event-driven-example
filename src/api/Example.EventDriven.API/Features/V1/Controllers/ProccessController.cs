@@ -1,31 +1,31 @@
-﻿using Example.EventDriven.Application.CreateProccess;
+﻿using Example.EventDriven.API.Features.Core;
 using Example.EventDriven.Application.CreateProccess.Boundaries;
 using Example.EventDriven.Application.GetRequestStatus;
 using Example.EventDriven.Application.GetRequestStatus.Boundaries;
+using Example.EventDriven.Application.SendEvent;
+using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Example.EventDriven.API.Features.V1.Controllers
 {
-    [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [Produces("application/json")]
-    public class ProccessController : ControllerBase
+    public class ProccessController : BaseController
     {
-        private readonly ICreateProcess _createProcess;
+        private readonly ISendEvent _sendEvent;
         private readonly IGetRequestStatus _getRequestStatus;
 
-        public ProccessController(ICreateProcess createProcess, IGetRequestStatus getRequestStatus)
+        public ProccessController(IConfiguration configuration, ISendEvent sendEvent, IGetRequestStatus getRequestStatus) : base(configuration)
         {
-            _createProcess = createProcess;
+            _sendEvent = sendEvent;
             _getRequestStatus = getRequestStatus;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(CreateProccessRequest request, CancellationToken cancellationToken)
         {
-            var response = await _createProcess.Create(request, cancellationToken);
+            var response = await _sendEvent.Send(request.Adapt<SendEventRequest>(), cancellationToken);
 
             return CreatedAtAction(nameof(Post), response);
         }

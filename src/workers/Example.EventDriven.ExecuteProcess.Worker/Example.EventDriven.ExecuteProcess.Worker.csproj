@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,5 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Example.EventDriven.Application\Example.EventDriven.Application.csproj" />
+    <ProjectReference Include="..\..\shared\Example.EventDriven.Domain\Example.EventDriven.Domain.csproj" />
+    <ProjectReference Include="..\..\shared\Example.EventDriven.Infrastructure\Example.EventDriven.Infrastructure.csproj" />
+  </ItemGroup>
 
 </Project>

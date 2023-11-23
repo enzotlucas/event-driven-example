@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Example.EventDriven.Application.ExecuteProcess.Boundaries;
 
 namespace Example.EventDriven.Application.ExecuteProcess
 {
     public interface IExecuteProcess
     {
-
+        Task Execute(ExecuteProcessRequest request, CancellationToken cancellationToken);
     }
 }

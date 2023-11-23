@@ -7,9 +7,9 @@ namespace Example.EventDriven.Application.CreateProccess.Boundaries
     {
         public static void Add()
         {
-            TypeAdapterConfig<CreateProccessRequest, SendEventRequest>
+            TypeAdapterConfig<CreateProcessRequest, SendEventRequest>
                 .NewConfig()
-                .Map(destination => destination.OperationName, source => nameof(CreateProccessRequest))
+                .Map(destination => destination.OperationName, source => nameof(CreateProcessRequest))
                 .Map(destination => destination.Value, source => source);
         }
     }

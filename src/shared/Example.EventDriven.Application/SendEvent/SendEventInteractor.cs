@@ -1,4 +1,5 @@
-﻿using Example.EventDriven.Application.SendEvent.Boundaries;
+﻿using Example.EventDriven.Application.CreateProccess.Boundaries;
+using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Extensions;
 using Example.EventDriven.Domain.Gateways.Event;
 using Example.EventDriven.Domain.Gateways.Logger;
@@ -10,10 +11,10 @@ namespace Example.EventDriven.Application.SendEvent
     public class SendEventInteractor : ISendEvent
     {
         private readonly ILoggerManager _logger;
-        private readonly IEventManager _eventManager;
+        private readonly IEventSenderManager _eventManager;
         private readonly IValidator<SendEventRequest> _validator;
 
-        public SendEventInteractor(ILoggerManager logger, IEventManager eventManager, IValidator<SendEventRequest> validator)
+        public SendEventInteractor(ILoggerManager logger, IEventSenderManager eventManager, IValidator<SendEventRequest> validator)
         {
             _logger = logger;
             _eventManager = eventManager;
@@ -29,7 +30,7 @@ namespace Example.EventDriven.Application.SendEvent
             _logger.Log("Request is valid", LoggerManagerSeverity.DEBUG, ("request", request));
 
             _logger.Log("Sending event", LoggerManagerSeverity.DEBUG, ("request", request));
-            var requestId = await _eventManager.SendEvent(request.Adapt<GenericEvent>(), cancellationToken);
+            var requestId = await _eventManager.Send(request.Adapt<CreateProcessEvent>(), cancellationToken);
             _logger.Log("Event sent", LoggerManagerSeverity.DEBUG, ("request", request), ("requestId", requestId));
 
             var response = new SendEventResponse(requestId);

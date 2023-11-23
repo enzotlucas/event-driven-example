@@ -1,4 +1,4 @@
-﻿using Example.EventDriven.Domain.Gateways.Event;
+﻿using Example.EventDriven.Application.CreateProccess.Boundaries;
 using Mapster;
 
 namespace Example.EventDriven.Application.SendEvent.Boundaries
@@ -7,10 +7,11 @@ namespace Example.EventDriven.Application.SendEvent.Boundaries
     {
         public static void Add()
         {
-            TypeAdapterConfig<SendEventRequest, GenericEvent>
+            TypeAdapterConfig<SendEventRequest, CreateProcessEvent>
                 .NewConfig()
-                .Map(destination => destination.OperationName, source => source.OperationName)
-                .Map(destination => destination.Value, source => source.Value);
+                .Map(destination => destination.Value, source => source.Value)
+                .Map(destination => destination.Timestamp, source => DateTime.UtcNow)
+                .Map(destination => destination.RequestId, source => Guid.Empty);
         }
     }
 }

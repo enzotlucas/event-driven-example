@@ -4,7 +4,7 @@ namespace Example.EventDriven.Application.CreateProccess
 {
     public class CreateProcessInteractor : ICreateProcess
     {
-        public async Task<CreateProccessResponse> Create(CreateProccessRequest request, CancellationToken cancellationToken)
+        public async Task<CreateProcessResponse> Create(CreateProcessRequest request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

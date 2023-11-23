@@ -1,7 +1,4 @@
 ﻿namespace Example.EventDriven.Application.CreateProccess.Boundaries
 {
-    public class CreateProccessResponse
-    {
-
-    }
+    public record CreateProcessRequest(string Name, string Description);
 }

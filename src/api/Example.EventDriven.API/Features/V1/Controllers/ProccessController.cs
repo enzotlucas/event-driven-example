@@ -23,11 +23,11 @@ namespace Example.EventDriven.API.Features.V1.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateProccessRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post(CreateProcessRequest request, CancellationToken cancellationToken)
         {
             var response = await _sendEvent.Send(request.Adapt<SendEventRequest>(), cancellationToken);
 
-            return CreatedAtAction(nameof(Post), response);
+            return Accepted(response);
         }
 
         [HttpGet("status/{id:guid}")]

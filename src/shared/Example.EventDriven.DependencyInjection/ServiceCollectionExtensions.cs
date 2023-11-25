@@ -1,12 +1,14 @@
-﻿using Example.EventDriven.Application;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Example.EventDriven.Application;
 using Example.EventDriven.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+using Example.EventDriven.DependencyInjection.Swagger;
 
-namespace Example.EventDriven.API.DependencyInjection
+namespace Example.EventDriven.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
+        public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services)
         {
             return services.AddApiConfiguration()
                            .AddSwaggerConfiguration()
@@ -14,7 +16,7 @@ namespace Example.EventDriven.API.DependencyInjection
                            .AddInfrastructureConfiguration();
         }
 
-        public static IServiceCollection AddApiConfiguration(this IServiceCollection services)
+        private static IServiceCollection AddApiConfiguration(this IServiceCollection services)
         {
             services.AddControllers();
 
@@ -38,6 +40,18 @@ namespace Example.EventDriven.API.DependencyInjection
                 options.SuppressModelStateInvalidFilter = true;
             });
 
+            return services;
+        }
+
+        public static IServiceCollection AddWorkerDependencyInjection(this IServiceCollection services)
+        {
+            return services.AddWorkerConfiguration()
+                           .AddApplicationConfiguration()
+                           .AddInfrastructureConfiguration();
+        }
+
+        private static IServiceCollection AddWorkerConfiguration(this IServiceCollection services)
+        {
             return services;
         }
     }

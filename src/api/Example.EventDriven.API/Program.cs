@@ -1,12 +1,12 @@
-using Example.EventDriven.API.DependencyInjection;
+using Example.EventDriven.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDependencyInjection();
+builder.Services.AddApiDependencyInjection();
 
 var app = builder.Build();
 
-app.UseDependencyInjection();
+app.UseApiDependencyInjection();
 
 app.MapControllers();
 

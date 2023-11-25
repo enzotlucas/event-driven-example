@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Example.EventDriven.API.Middlewares
+namespace Example.EventDriven.DependencyInjection.Middlewares
 {
     public class ErrorHandlingMiddleware
     {

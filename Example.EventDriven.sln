@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.EventDriven.Domain"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.EventDriven.Infrastructure", "src\shared\Example.EventDriven.Infrastructure\Example.EventDriven.Infrastructure.csproj", "{13148F03-8221-4656-915E-69679D5CBB72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.EventDriven.ExecuteProcess.Worker", "src\workers\Example.EventDriven.ExecuteProcess.Worker\Example.EventDriven.ExecuteProcess.Worker.csproj", "{B85747DE-4B41-4929-A8D5-3E73777632C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.EventDriven.ExecuteProcess.Worker", "src\workers\Example.EventDriven.ExecuteProcess.Worker\Example.EventDriven.ExecuteProcess.Worker.csproj", "{B85747DE-4B41-4929-A8D5-3E73777632C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.EventDriven.CreateProcess.Worker", "src\workers\Example.EventDriven.CreateProcess.Worker\Example.EventDriven.CreateProcess.Worker.csproj", "{5A1D5F8D-9149-4A1C-AEF3-25BAF7E1A440}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.EventDriven.CreateProcess.Worker", "src\workers\Example.EventDriven.CreateProcess.Worker\Example.EventDriven.CreateProcess.Worker.csproj", "{5A1D5F8D-9149-4A1C-AEF3-25BAF7E1A440}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.EventDriven.IntegrationTests", "tests\Example.EventDriven.IntegrationTests\Example.EventDriven.IntegrationTests.csproj", "{B73BB126-7A49-43AA-BD4C-E30EF1517061}"
 EndProject
@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0FB0073A-B
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.EventDriven.DependencyInjection", "src\shared\Example.EventDriven.DependencyInjection\Example.EventDriven.DependencyInjection.csproj", "{80D923DC-EEBC-4AF8-B024-6DD5D9EDD7E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{B73BB126-7A49-43AA-BD4C-E30EF1517061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B73BB126-7A49-43AA-BD4C-E30EF1517061}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B73BB126-7A49-43AA-BD4C-E30EF1517061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80D923DC-EEBC-4AF8-B024-6DD5D9EDD7E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80D923DC-EEBC-4AF8-B024-6DD5D9EDD7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80D923DC-EEBC-4AF8-B024-6DD5D9EDD7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80D923DC-EEBC-4AF8-B024-6DD5D9EDD7E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{B85747DE-4B41-4929-A8D5-3E73777632C3} = {24B5A3E2-AC70-4FBD-BBD4-CCA294DCCA07}
 		{5A1D5F8D-9149-4A1C-AEF3-25BAF7E1A440} = {24B5A3E2-AC70-4FBD-BBD4-CCA294DCCA07}
 		{B73BB126-7A49-43AA-BD4C-E30EF1517061} = {9455D96A-054D-46C0-AECC-27C10DF65793}
+		{80D923DC-EEBC-4AF8-B024-6DD5D9EDD7E1} = {CB83423E-24B9-4F7B-95D1-45CAE095A222}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF930DF1-6ECD-4B04-BC27-35DC65A159F3}

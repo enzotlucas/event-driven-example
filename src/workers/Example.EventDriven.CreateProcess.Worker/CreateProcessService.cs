@@ -1,6 +1,7 @@
 ﻿using Example.EventDriven.Application.CreateProccess;
 using Example.EventDriven.Application.CreateProccess.Boundaries;
 using Example.EventDriven.Domain.Gateways.Event;
+using Example.EventDriven.Domain.Gateways.MemoryCache;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.EventDriven.CreateProcess.Worker
@@ -27,6 +28,8 @@ namespace Example.EventDriven.CreateProcess.Worker
         protected override async Task ProcessEventAsync(CreateProcessEvent request, CancellationToken cancellationToken)
         {
             using var scope = _serviceProvider.CreateScope();
+
+            var memoryCache = scope.ServiceProvider.GetRequiredService<IMemoryCacheManager>();
 
             var createProcessService = scope.ServiceProvider.GetRequiredService<ICreateProcess>();
 

@@ -17,7 +17,7 @@ docker-compose up --build
 ## Help links
 | Link | Description |
 |------|-------------|
-| [Related documents page](/docs/related-documents.md) | Documents related to the subject 
+| [Related documentations page](/docs/related-documentations.md) | Documentations related to the subject 
 
 ## Give a star
 If you found the project helpful or just want to help the developer, give the project a star!

@@ -1,5 +1,5 @@
 # Related documentations
-Documentationss related to the subject
+Documentations related to the subject
 
 ## Links
 | Link | Description |

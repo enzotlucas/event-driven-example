@@ -10,5 +10,10 @@ namespace Example.EventDriven.Domain.Entitites
         public ProcessStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
+
+        public bool Exists()
+        {
+            return Id != Guid.Empty && CreatedAt != DateTime.MinValue; 
+        }
     }
 }

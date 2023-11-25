@@ -1,7 +1,7 @@
-﻿using Example.EventDriven.Application.CreateProccess.Boundaries;
+﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
 using FluentValidation;
 
-namespace Example.EventDriven.Application.CreateProccess
+namespace Example.EventDriven.Application.CreateProcess
 {
     public class CreateProcessValidator : AbstractValidator<CreateProcessRequest>
     {

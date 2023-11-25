@@ -1,6 +1,6 @@
 ﻿using Example.EventDriven.Domain.Gateways.Event;
 
-namespace Example.EventDriven.Application.CreateProccess.Boundaries
+namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
     public class CreateProcessEvent : GenericEvent<CreateProcessRequest>
     {

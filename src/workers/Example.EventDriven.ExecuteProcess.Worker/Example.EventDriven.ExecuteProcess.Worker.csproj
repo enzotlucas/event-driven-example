@@ -8,9 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\shared\Example.EventDriven.Application\Example.EventDriven.Application.csproj" />
+    <ProjectReference Include="..\..\shared\Example.EventDriven.DependencyInjection\Example.EventDriven.DependencyInjection.csproj" />
     <ProjectReference Include="..\..\shared\Example.EventDriven.Domain\Example.EventDriven.Domain.csproj" />
-    <ProjectReference Include="..\..\shared\Example.EventDriven.Infrastructure\Example.EventDriven.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
-﻿using Example.EventDriven.Application.CreateProccess;
-using Example.EventDriven.Application.CreateProccess.Boundaries;
+﻿using Example.EventDriven.Application.CreateProcess;
+using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.GetRequestStatus;
 using Example.EventDriven.Application.SendEvent.Boundaries;
 using FluentValidation;

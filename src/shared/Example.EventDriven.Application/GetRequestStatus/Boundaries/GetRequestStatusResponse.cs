@@ -1,14 +1,15 @@
 ﻿using Example.EventDriven.Domain.Entitites;
+using Example.EventDriven.Domain.ValueObjects;
 using Microsoft.AspNetCore.Http;
 
 namespace Example.EventDriven.Application.GetRequestStatus.Boundaries
 {
     public class GetRequestStatusResponse<T>
     {
-        public RequestProcessEntity<T> Data { get; set; }
+        public RequestEntity<T> Data { get; set; }
         public int StatusCode { get; set; }
 
-        public GetRequestStatusResponse(RequestProcessEntity<T> data)
+        public GetRequestStatusResponse(RequestEntity<T> data)
         {
             Data = data;
 
@@ -18,13 +19,13 @@ namespace Example.EventDriven.Application.GetRequestStatus.Boundaries
                 return;
             }
 
-            if(!data.Success)
+            if(data.Status == RequestStatus.InvalidInformation)
             {
                 StatusCode = StatusCodes.Status422UnprocessableEntity;
                 return;
             }
 
-            if(!data.IsCompleted)
+            if(data.Status == RequestStatus.NotStarted)
             {
                 StatusCode = StatusCodes.Status204NoContent;
                 return;

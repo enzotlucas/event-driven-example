@@ -1,6 +1,8 @@
 ﻿using Example.EventDriven.Domain.Gateways.Event;
 using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Gateways.MemoryCache;
+using Example.EventDriven.Domain.Repositories;
+using Example.EventDriven.Infrastructure.Database.Repositories;
 using Example.EventDriven.Infrastructure.Event;
 using Example.EventDriven.Infrastructure.Logger;
 using Example.EventDriven.Infrastructure.MemoryCache;
@@ -35,6 +37,13 @@ namespace Example.EventDriven.Infrastructure
         {
             services.AddMemoryCache();
             services.AddScoped<IMemoryCacheManager, MicrosoftMemoryManager>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddDatabase(this IServiceCollection services)
+        {
+            services.AddScoped<IProcessRepository, ProcessRepository>();
 
             return services;
         }

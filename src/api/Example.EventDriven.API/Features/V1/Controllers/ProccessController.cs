@@ -1,5 +1,5 @@
 ﻿using Example.EventDriven.API.Features.Core;
-using Example.EventDriven.Application.CreateProccess.Boundaries;
+using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.GetRequestStatus;
 using Example.EventDriven.Application.GetRequestStatus.Boundaries;
 using Example.EventDriven.Application.SendEvent;

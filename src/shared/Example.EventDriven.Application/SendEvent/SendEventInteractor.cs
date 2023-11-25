@@ -1,8 +1,10 @@
-﻿using Example.EventDriven.Application.CreateProccess.Boundaries;
+﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.SendEvent.Boundaries;
+using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.Extensions;
 using Example.EventDriven.Domain.Gateways.Event;
 using Example.EventDriven.Domain.Gateways.Logger;
+using Example.EventDriven.Domain.Gateways.MemoryCache;
 using FluentValidation;
 using Mapster;
 
@@ -13,12 +15,18 @@ namespace Example.EventDriven.Application.SendEvent
         private readonly ILoggerManager _logger;
         private readonly IEventSenderManager _eventManager;
         private readonly IValidator<SendEventRequest> _validator;
+        private readonly IMemoryCacheManager _memoryCache;
 
-        public SendEventInteractor(ILoggerManager logger, IEventSenderManager eventManager, IValidator<SendEventRequest> validator)
+        public SendEventInteractor(
+            ILoggerManager logger, 
+            IEventSenderManager eventManager, 
+            IValidator<SendEventRequest> validator, 
+            IMemoryCacheManager memoryCache)
         {
             _logger = logger;
             _eventManager = eventManager;
             _validator = validator;
+            _memoryCache = memoryCache;
         }
 
         public async Task<SendEventResponse> Send(SendEventRequest request, CancellationToken cancellationToken)
@@ -33,11 +41,20 @@ namespace Example.EventDriven.Application.SendEvent
             var requestId = await _eventManager.Send(request.Adapt<CreateProcessEvent>(), cancellationToken);
             _logger.Log("Event sent", LoggerManagerSeverity.DEBUG, ("request", request), ("requestId", requestId));
 
-            var response = new SendEventResponse(requestId);
+            var requestEntity = new RequestEntity<ProcessEntity>
+            {
+                RequestId = requestId,
+                Status = Domain.ValueObjects.RequestStatus.NotStarted,
+                Message = Domain.ValueObjects.ResponseMessage.Default
+            };
 
-            _logger.Log("Ending sending the event", LoggerManagerSeverity.INFORMATION, ("response", response));
+            _logger.Log("Creating request on memory cache", LoggerManagerSeverity.DEBUG, ("requestEntity", requestEntity), ("requestId", requestId));
+            await _memoryCache.CreateOrUpdate(requestId, requestEntity);
+            _logger.Log("Request created on memory cache", LoggerManagerSeverity.DEBUG, ("requestEntity", requestEntity), ("requestId", requestId));
 
-            return response;
+            _logger.Log("Ending sending the event", LoggerManagerSeverity.INFORMATION, ("requestEntity", requestEntity));
+
+            return new SendEventResponse(requestId);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using Example.EventDriven.Application.CreateProccess.Boundaries;
+﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
 
-namespace Example.EventDriven.Application.CreateProccess
+namespace Example.EventDriven.Application.CreateProcess
 {
     public interface ICreateProcess
     {

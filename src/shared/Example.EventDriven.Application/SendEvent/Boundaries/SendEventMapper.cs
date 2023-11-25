@@ -1,4 +1,4 @@
-﻿using Example.EventDriven.Application.CreateProccess.Boundaries;
+﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Mapster;
 
 namespace Example.EventDriven.Application.SendEvent.Boundaries

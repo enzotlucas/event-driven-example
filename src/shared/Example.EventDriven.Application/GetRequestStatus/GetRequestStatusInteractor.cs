@@ -28,7 +28,7 @@ namespace Example.EventDriven.Application.GetRequestStatus
             _validator.ThrowIfInvalid(request);
             _logger.Log("Request is valid", LoggerManagerSeverity.DEBUG, ("request", request));
 
-            var value = await _memoryCache.GetAsync<RequestProcessEntity<T>>(request.RequestId, cancellationToken);
+            var value = await _memoryCache.GetAsync<RequestEntity<T>>(request.RequestId, cancellationToken);
 
             _logger.Log("Ending get request status", LoggerManagerSeverity.INFORMATION, ("response", value));
 

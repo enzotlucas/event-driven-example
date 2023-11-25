@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Example.EventDriven.Application.ExecuteProcess.Boundaries;
 
 namespace Example.EventDriven.Application.ExecuteProcess
 {
-    public sealed class ExecuteProcessInteractor
+    public sealed class ExecuteProcessInteractor : IExecuteProcess
     {
-
+        public Task<ExecuteProcessResponse> Execute(ExecuteProcessRequest request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Example.EventDriven.Application.CreateProcess;
 using Example.EventDriven.Application.CreateProcess.Boundaries;
+using Example.EventDriven.Application.ExecuteProcess;
 using Example.EventDriven.Application.GetRequestStatus;
+using Example.EventDriven.Application.SendEvent;
 using Example.EventDriven.Application.SendEvent.Boundaries;
 using FluentValidation;
 using Mapster;
@@ -21,7 +23,9 @@ namespace Example.EventDriven.Application
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
             services.AddScoped<ICreateProcess, CreateProcessInteractor>();
+            services.AddScoped<IExecuteProcess, ExecuteProcessInteractor>();
             services.AddScoped<IGetRequestStatus, GetRequestStatusInteractor>();
+            services.AddScoped<ISendEvent, SendEventInteractor>();
 
             return services;
         }

@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0FB0073A-B
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
+		docs\related-documentations.md = docs\related-documentations.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.EventDriven.DependencyInjection", "src\shared\Example.EventDriven.DependencyInjection\Example.EventDriven.DependencyInjection.csproj", "{80D923DC-EEBC-4AF8-B024-6DD5D9EDD7E1}"

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Example.EventDriven.Application.GetRequestStatus
 {
-    public class GetRequestStatusValidator : AbstractValidator<GetRequestStatusRequest>
+    public sealed class GetRequestStatusValidator : AbstractValidator<GetRequestStatusRequest>
     {
         public GetRequestStatusValidator()
         {

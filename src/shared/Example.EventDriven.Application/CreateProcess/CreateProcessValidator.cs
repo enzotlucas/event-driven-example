@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Example.EventDriven.Application.CreateProcess
 {
-    public class CreateProcessValidator : AbstractValidator<CreateProcessRequest>
+    public sealed class CreateProcessValidator : AbstractValidator<CreateProcessRequest>
     {
         public CreateProcessValidator()
         {

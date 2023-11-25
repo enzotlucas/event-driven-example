@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Example.EventDriven.API.Features.V1.Controllers
 {
     [ApiVersion("1.0")]
-    public class ProccessController : BaseController
+    public sealed class ProccessController : BaseController
     {
         private readonly ISendEvent _sendEvent;
         private readonly IGetRequestStatus _getRequestStatus;

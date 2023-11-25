@@ -1,4 +1,4 @@
 ﻿namespace Example.EventDriven.Application.GetRequestStatus.Boundaries
 {
-    public record GetRequestStatusRequest(Guid RequestId);
+    public sealed record GetRequestStatusRequest(Guid RequestId);
 }

@@ -7,7 +7,7 @@ using Example.EventDriven.Domain.Entitites;
 
 namespace Example.EventDriven.Application.GetRequestStatus
 {
-    public class GetRequestStatusInteractor : IGetRequestStatus
+    public sealed class GetRequestStatusInteractor : IGetRequestStatus
     {
         private readonly ILoggerManager _logger;
         private readonly IMemoryCacheManager _memoryCache;

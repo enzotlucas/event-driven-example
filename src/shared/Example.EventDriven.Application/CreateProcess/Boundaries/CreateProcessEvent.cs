@@ -2,7 +2,7 @@
 
 namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
-    public class CreateProcessEvent : GenericEvent<CreateProcessRequest>
+    public sealed class CreateProcessEvent : GenericEvent<CreateProcessRequest>
     {
         public override string OperationName => nameof(CreateProcessEvent);
     }

@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Example.EventDriven.Infrastructure.Logger
 {
     [ExcludeFromCodeCoverage]
-    public class ConsoleLoggerManager : ILoggerManager
+    public sealed class ConsoleLoggerManager : ILoggerManager
     {
         private readonly ILogger<ConsoleLoggerManager> _logger;
         private readonly LoggerManagerSeverity _minLevel;

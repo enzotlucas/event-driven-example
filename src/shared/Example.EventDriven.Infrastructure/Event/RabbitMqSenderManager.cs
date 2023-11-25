@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Example.EventDriven.Infrastructure.Event
 {
-    public class RabbitMqSenderManager : BaseRabbitMqManager, IEventSenderManager
+    public sealed class RabbitMqSenderManager : BaseRabbitMqManager, IEventSenderManager
     {
         public RabbitMqSenderManager(IConfiguration configuration) : base(configuration)
         {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Example.EventDriven.Application.GetRequestStatus.Boundaries
 {
-    public class GetRequestStatusResponse<T>
+    public sealed class GetRequestStatusResponse<T>
     {
         public RequestEntity<T> Data { get; set; }
         public int StatusCode { get; set; }

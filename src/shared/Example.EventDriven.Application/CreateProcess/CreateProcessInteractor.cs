@@ -11,7 +11,7 @@ using Mapster;
 
 namespace Example.EventDriven.Application.CreateProcess
 {
-    public class CreateProcessInteractor : ICreateProcess
+    public sealed class CreateProcessInteractor : ICreateProcess
     {
         private readonly ILoggerManager _logger;
         private readonly IValidator<CreateProcessRequest> _validator;

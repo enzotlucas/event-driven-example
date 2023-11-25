@@ -1,10 +1,9 @@
-﻿using Example.EventDriven.Domain.Exceptions;
-using Example.EventDriven.Domain.Gateways.MemoryCache;
+﻿using Example.EventDriven.Domain.Gateways.MemoryCache;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Example.EventDriven.Infrastructure.MemoryCache
 {
-    public class MicrosoftMemoryManager : IMemoryCacheManager
+    public sealed class MicrosoftMemoryManager : IMemoryCacheManager
     {
         private readonly IMemoryCache _memoryCache;
 

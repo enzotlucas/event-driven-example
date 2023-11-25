@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Example.EventDriven.Application.ExecuteProcess
 {
-    public class ExecuteProcessValidator
+    public sealed class ExecuteProcessValidator
     {
 
     }

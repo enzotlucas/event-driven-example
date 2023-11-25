@@ -1,4 +1,4 @@
 ﻿namespace Example.EventDriven.Application.SendEvent.Boundaries
 {
-    public record SendEventRequest(string OperationName, object Value);
+    public sealed record SendEventRequest(string OperationName, object Value);
 }

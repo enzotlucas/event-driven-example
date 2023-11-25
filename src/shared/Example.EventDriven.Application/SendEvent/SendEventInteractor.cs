@@ -10,7 +10,7 @@ using Mapster;
 
 namespace Example.EventDriven.Application.SendEvent
 {
-    public class SendEventInteractor : ISendEvent
+    public sealed class SendEventInteractor : ISendEvent
     {
         private readonly ILoggerManager _logger;
         private readonly IEventSenderManager _eventManager;

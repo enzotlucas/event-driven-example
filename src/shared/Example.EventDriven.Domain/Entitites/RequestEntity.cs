@@ -2,7 +2,7 @@
 
 namespace Example.EventDriven.Domain.Entitites
 {
-    public class RequestEntity<T>
+    public sealed class RequestEntity<T>
     {
         public Guid RequestId { get; set; }
         public ResponseMessage Message { get; set; }

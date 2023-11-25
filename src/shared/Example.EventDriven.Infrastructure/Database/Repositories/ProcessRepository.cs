@@ -3,7 +3,7 @@ using Example.EventDriven.Domain.Repositories;
 
 namespace Example.EventDriven.Infrastructure.Database.Repositories
 {
-    public class ProcessRepository : IProcessRepository
+    public sealed class ProcessRepository : IProcessRepository
     {
         public Task<(bool Success, ProcessEntity Entity)> CreateAsync(ProcessEntity entity, CancellationToken cancellationToken)
         {

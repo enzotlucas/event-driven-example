@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Example.EventDriven.Application.SendEvent
 {
-    public class SendEventValidator : AbstractValidator<SendEventRequest>
+    public sealed class SendEventValidator : AbstractValidator<SendEventRequest>
     {
         public SendEventValidator()
         {

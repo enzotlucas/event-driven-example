@@ -2,7 +2,7 @@
 
 namespace Example.EventDriven.Domain.Entitites
 {
-    public class ProcessEntity
+    public sealed class ProcessEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

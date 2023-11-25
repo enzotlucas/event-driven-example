@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Example.EventDriven.Application.ExecuteProcess.Boundaries
 {
-    public class ExecuteProcessRequest
+    public sealed class ExecuteProcessRequest
     {
 
     }

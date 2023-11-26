@@ -1,4 +1,5 @@
 ﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
+using Example.EventDriven.Application.ExecuteProcess.Boundaries;
 using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.Extensions;
@@ -31,7 +32,7 @@ namespace Example.EventDriven.Application.CreateProcess
 
         public async Task<CreateProcessResponse> Create(CreateProcessRequest request, CancellationToken cancellationToken)
         {
-            _logger.Log("Starting get request status", LoggerManagerSeverity.INFORMATION, ("request", request));
+            _logger.Log("Starting create process", LoggerManagerSeverity.INFORMATION, ("request", request));
             _logger.Log("Validating the request", LoggerManagerSeverity.DEBUG, ("request", request));
 
             var validation = await _validator.ValidateAsync(request, cancellationToken);
@@ -81,6 +82,12 @@ namespace Example.EventDriven.Application.CreateProcess
             }
 
             _logger.Log("Process created on database", LoggerManagerSeverity.DEBUG, ("process", process));
+            _logger.Log("Sending execute process event", LoggerManagerSeverity.DEBUG, ("request", request));
+
+            await _eventManager.Send(request.Adapt<ExecuteProcessEvent>(), cancellationToken);
+            
+            _logger.Log("Event execute process sent", LoggerManagerSeverity.DEBUG, ("request", request), ("requestId", request.RequestId));
+            _logger.Log("Ending process creation", LoggerManagerSeverity.INFORMATION, ("request", request), ("entity", entity));
 
             return entity.Adapt<CreateProcessResponse>();
         }

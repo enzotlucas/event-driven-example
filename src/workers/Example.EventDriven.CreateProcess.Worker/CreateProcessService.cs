@@ -42,7 +42,8 @@ namespace Example.EventDriven.CreateProcess.Worker
             _logger.Log("Begin executing Create Process business rule", LoggerManagerSeverity.DEBUG, ("request", request));
             var response = await createProcessService.Create(request.Value, cancellationToken);
             _logger.Log("End executing Create Process business rule", LoggerManagerSeverity.DEBUG, 
-                ("request", request), ("response", response));
+                    ("request", request), 
+                    ("response", response));
 
             _logger.Log("Begin saving Create Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
             await memoryCache.CreateOrUpdate(request.RequestId, response.Value);

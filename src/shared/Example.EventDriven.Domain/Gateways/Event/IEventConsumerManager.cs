@@ -2,7 +2,7 @@
 
 namespace Example.EventDriven.Domain.Gateways.Event
 {
-    public interface IEventConsumerManager
+    public interface IEventConsumerManager : IDisposable
     {
         Task SubscribeAsync<TEvent, TEventRequest>(string subscriptionId,
                                           Func<TEvent, CancellationToken, Task> onMessage,

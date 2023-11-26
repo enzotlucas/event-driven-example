@@ -4,9 +4,9 @@ using Microsoft.Extensions.Hosting;
 using Example.EventDriven.DependencyInjection;
 
 var host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
+    .ConfigureServices((builder, services) =>
     {
-        services.AddWorkerDependencyInjection();
+        services.AddWorkerDependencyInjection(builder.Configuration);
 
         services.AddHostedService<CreateProcessService>();
     })

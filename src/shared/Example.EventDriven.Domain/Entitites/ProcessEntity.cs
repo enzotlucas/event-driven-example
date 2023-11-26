@@ -15,5 +15,11 @@ namespace Example.EventDriven.Domain.Entitites
         {
             return Id != Guid.Empty && CreatedAt != DateTime.MinValue; 
         }
+
+        public ProcessEntity()
+        {
+            Id = Guid.Empty;
+            CreatedAt = DateTime.MinValue;
+        }
     }
 }

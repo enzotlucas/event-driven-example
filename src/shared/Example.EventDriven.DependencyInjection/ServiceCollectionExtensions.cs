@@ -4,17 +4,18 @@ using Example.EventDriven.Application;
 using Example.EventDriven.Infrastructure;
 using Example.EventDriven.DependencyInjection.Swagger;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Configuration;
 
 namespace Example.EventDriven.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services)
+        public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
             return services.AddApiConfiguration()
                            .AddSwaggerConfiguration()
                            .AddApplicationConfiguration()
-                           .AddInfrastructureConfiguration();
+                           .AddInfrastructureConfiguration(configuration);
         }
 
         private static IServiceCollection AddApiConfiguration(this IServiceCollection services)
@@ -47,11 +48,11 @@ namespace Example.EventDriven.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddWorkerDependencyInjection(this IServiceCollection services)
+        public static IServiceCollection AddWorkerDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
             return services.AddWorkerConfiguration()
                            .AddApplicationConfiguration()
-                           .AddInfrastructureConfiguration();
+                           .AddInfrastructureConfiguration(configuration);
         }
 
         private static IServiceCollection AddWorkerConfiguration(this IServiceCollection services)

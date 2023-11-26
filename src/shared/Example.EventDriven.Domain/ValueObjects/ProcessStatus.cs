@@ -2,8 +2,8 @@
 {
     public enum ProcessStatus
     {
-        Created,
-        Started,
-        SuccessfullyFinished
+        Created = 0,
+        Started = 1,
+        SuccessfullyFinished = 2
     }
 }

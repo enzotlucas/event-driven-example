@@ -1,7 +1,10 @@
-﻿namespace Example.EventDriven.Application.CreateProcess.Boundaries
+﻿using System.Text.Json.Serialization;
+
+namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
     public sealed class CreateProcessRequest
     {
+        [JsonIgnore]
         public Guid RequestId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

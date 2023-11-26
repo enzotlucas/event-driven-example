@@ -43,5 +43,13 @@ namespace Example.EventDriven.Infrastructure.Event.Configurations
                     s.Register<ITypeNameSerializer, EventBusTypeNameSerializer>();
                 });
         }
+
+        protected virtual void ExecuteDispose(bool disposing)
+        {
+            if (disposing)
+            {
+                MessageBus.Dispose();
+            }
+        }
     }
 }

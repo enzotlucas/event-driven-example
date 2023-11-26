@@ -24,16 +24,8 @@ namespace Example.EventDriven.Infrastructure.Event
 
         public void Dispose()
         {
-            Dispose(true);
+            ExecuteDispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                MessageBus.Dispose();
-            }
         }
     }
 }

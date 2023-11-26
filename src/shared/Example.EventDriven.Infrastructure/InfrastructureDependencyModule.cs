@@ -16,7 +16,8 @@ namespace Example.EventDriven.Infrastructure
         {
             return services.AddLoggingManager()
                            .AddEventManager()
-                           .AddMemoryCacheManager();
+                           .AddMemoryCacheManager()
+                           .AddDatabase();
         }
 
         private static IServiceCollection AddLoggingManager(this IServiceCollection services)

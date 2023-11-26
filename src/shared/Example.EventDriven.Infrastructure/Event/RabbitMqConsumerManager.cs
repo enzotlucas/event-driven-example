@@ -23,5 +23,11 @@ namespace Example.EventDriven.Infrastructure.Event
 
             await MessageBus.PubSub.SubscribeAsync(subscriptionId, onMessage, configuration, cancellationToken);
         }
+
+        public void Dispose()
+        {
+            ExecuteDispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

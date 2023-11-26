@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Example.EventDriven.Application.ExecuteProcess.Boundaries;
+using FluentValidation;
 
 namespace Example.EventDriven.Application.ExecuteProcess
 {
-    public sealed class ExecuteProcessValidator
+    public sealed class ExecuteProcessValidator : AbstractValidator<ExecuteProcessRequest>
     {
 
     }

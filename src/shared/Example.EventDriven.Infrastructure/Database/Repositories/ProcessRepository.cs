@@ -14,5 +14,10 @@ namespace Example.EventDriven.Infrastructure.Database.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task UpdateAsync(ProcessEntity existingProcess, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

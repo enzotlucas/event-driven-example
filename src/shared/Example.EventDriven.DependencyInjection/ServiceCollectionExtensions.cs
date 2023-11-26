@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Example.EventDriven.Application;
 using Example.EventDriven.Infrastructure;
 using Example.EventDriven.DependencyInjection.Swagger;
+using System.Text.Json.Serialization;
 
 namespace Example.EventDriven.DependencyInjection
 {
@@ -18,6 +19,9 @@ namespace Example.EventDriven.DependencyInjection
 
         private static IServiceCollection AddApiConfiguration(this IServiceCollection services)
         {
+            services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(o => o.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+            services.Configure<JsonOptions>(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();

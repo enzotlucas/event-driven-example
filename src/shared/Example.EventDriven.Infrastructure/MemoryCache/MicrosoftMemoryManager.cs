@@ -17,6 +17,11 @@ namespace Example.EventDriven.Infrastructure.MemoryCache
             throw new NotImplementedException();
         }
 
+        public Task<bool> ExistsAsync(Guid requestId, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<T> GetAsync<T>(Guid requestId, CancellationToken cancellationToken)
         {
             return await Task.Run(() =>

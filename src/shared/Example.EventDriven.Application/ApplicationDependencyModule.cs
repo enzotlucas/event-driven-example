@@ -1,7 +1,9 @@
 ﻿using Example.EventDriven.Application.CreateProcess;
 using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.ExecuteProcess;
+using Example.EventDriven.Application.ExecuteProcess.Boundaries;
 using Example.EventDriven.Application.GetRequestStatus;
+using Example.EventDriven.Application.Request.UpdateRequest;
 using Example.EventDriven.Application.SendEvent;
 using Example.EventDriven.Application.SendEvent.Boundaries;
 using FluentValidation;
@@ -24,8 +26,10 @@ namespace Example.EventDriven.Application
         {
             services.AddScoped<ICreateProcess, CreateProcessInteractor>();
             services.AddScoped<IExecuteProcess, ExecuteProcessInteractor>();
+
             services.AddScoped<IGetRequestStatus, GetRequestStatusInteractor>();
             services.AddScoped<ISendRequest, SendRequestInteractor>();
+            services.AddScoped<IUpdateRequestStatus, UpdateRequestStatusInteractor>();
 
             return services;
         }
@@ -39,8 +43,10 @@ namespace Example.EventDriven.Application
 
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
-            SendRequestMapper.Add();
             CreateProcessMapper.Add();
+            ExecuteProcessMapper.Add();
+
+            SendRequestMapper.Add();
 
             TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
 

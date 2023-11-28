@@ -1,7 +1,9 @@
-﻿using Example.EventDriven.Application.SendEvent.Boundaries;
+﻿using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
+using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.ValueObjects;
 using Mapster;
+using Microsoft.AspNetCore.Http.Features.Authentication;
 using System.ComponentModel.DataAnnotations;
 
 namespace Example.EventDriven.Application.CreateProcess.Boundaries
@@ -34,6 +36,11 @@ namespace Example.EventDriven.Application.CreateProcess.Boundaries
                     source.Exists() ? RequestStatus.InvalidInformation : RequestStatus.Processing,
                     source
                 ));
+
+            TypeAdapterConfig<CreateProcessResponse, UpdateRequestStatusEvent>
+                .NewConfig()
+                .Map(destination => destination.RequestId, source => source.RequestId)
+                .Map(destination => destination.Value, source => source.Value);
         }
     }
 }

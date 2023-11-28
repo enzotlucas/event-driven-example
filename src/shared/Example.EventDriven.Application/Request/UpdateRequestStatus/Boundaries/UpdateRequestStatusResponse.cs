@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Example.EventDriven.Application.Request.UpdateRequest
+namespace Example.EventDriven.Application.Request.UpdateRequest.Boundaries
 {
-    public class UpdateRequestService
+    public class UpdateRequestStatusResponse
     {
 
     }

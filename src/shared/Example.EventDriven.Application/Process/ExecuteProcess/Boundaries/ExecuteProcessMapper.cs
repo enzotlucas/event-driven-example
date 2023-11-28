@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
+using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
+using Mapster;
 
 namespace Example.EventDriven.Application.ExecuteProcess.Boundaries
 {
-    public class ExecuteProcessMapper
+    public static class ExecuteProcessMapper
     {
-
+        public static void Add()
+        {
+            TypeAdapterConfig<ExecuteProcessResponse, UpdateRequestStatusEvent>
+               .NewConfig()
+               .Map(destination => destination.RequestId, source => source.RequestId)
+               .Map(destination => destination.Value, source => source.Value);
+        }
     }
 }

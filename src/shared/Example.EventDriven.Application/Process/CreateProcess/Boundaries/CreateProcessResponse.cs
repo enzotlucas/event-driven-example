@@ -6,5 +6,6 @@ namespace Example.EventDriven.Application.CreateProcess.Boundaries
     public sealed class CreateProcessResponse
     {
         public RequestEntity<ProcessEntity> Value { get; set; }
+        public Guid RequestId { get; set; }
     }
 }

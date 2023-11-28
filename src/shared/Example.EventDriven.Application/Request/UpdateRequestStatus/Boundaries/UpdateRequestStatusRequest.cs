@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Example.EventDriven.Application.Request.UpdateRequest.Boundaries
 {
-    public class UpdateRequestEvent
+    public class UpdateRequestStatusRequest
     {
 
     }

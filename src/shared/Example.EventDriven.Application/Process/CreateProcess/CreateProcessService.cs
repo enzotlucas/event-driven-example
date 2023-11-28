@@ -1,8 +1,10 @@
 ﻿using Example.EventDriven.Application.CreateProcess;
 using Example.EventDriven.Application.CreateProcess.Boundaries;
+using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
 using Example.EventDriven.Domain.Gateways.Event;
 using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Gateways.MemoryCache;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.EventDriven.Application.Process.CreateProcess
@@ -36,17 +38,19 @@ namespace Example.EventDriven.Application.Process.CreateProcess
         {
             using var scope = _serviceProvider.CreateScope();
 
-            var memoryCache = scope.ServiceProvider.GetRequiredService<IMemoryCacheManager>();
+            var eventSender = scope.ServiceProvider.GetRequiredService<IEventSenderManager>();
             var createProcessService = scope.ServiceProvider.GetRequiredService<ICreateProcess>();
 
             _logger.Log("Begin executing Create Process business rule", LoggerManagerSeverity.DEBUG, ("request", request));
             var response = await createProcessService.Create(request.Value, cancellationToken);
+            response.RequestId = request.RequestId;
             _logger.Log("End executing Create Process business rule", LoggerManagerSeverity.DEBUG, 
                     ("request", request), 
                     ("response", response));
 
             _logger.Log("Begin saving Create Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
-            await memoryCache.CreateOrUpdate(request.RequestId, response.Value);
+            await eventSender.Send(response.Adapt<UpdateRequestStatusEvent>(), cancellationToken);
+            //await memoryCache.CreateOrUpdate(request.RequestId, response.Value);
             _logger.Log("End saving Create Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
         }
     }

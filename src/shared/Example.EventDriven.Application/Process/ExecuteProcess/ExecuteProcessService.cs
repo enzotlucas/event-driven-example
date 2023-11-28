@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Example.EventDriven.Application.ExecuteProcess;
 using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Gateways.MemoryCache;
+using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
+using Mapster;
 
 namespace Example.EventDriven.Process.ExecuteProcess.Application
 {
@@ -33,16 +35,18 @@ namespace Example.EventDriven.Process.ExecuteProcess.Application
         {
             using var scope = _serviceProvider.CreateScope();
 
-            var memoryCache = scope.ServiceProvider.GetRequiredService<IMemoryCacheManager>();
+            var eventSender = scope.ServiceProvider.GetRequiredService<IEventSenderManager>();
             var executeProcessService = scope.ServiceProvider.GetRequiredService<IExecuteProcess>();
 
             _logger.Log("Begin executing Execute Process business rule", LoggerManagerSeverity.DEBUG, ("request", request));
             var response = await executeProcessService.Execute(request.Value, cancellationToken);
+            response.RequestId = request.RequestId;
             _logger.Log("End executing Execute Process business rule", LoggerManagerSeverity.DEBUG,
                 ("request", request), ("response", response));
 
             _logger.Log("Begin saving Execute Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
-            await memoryCache.CreateOrUpdate(request.RequestId, response.Value);
+            await eventSender.Send(response.Adapt<UpdateRequestStatusEvent>(), cancellationToken);
+            //await memoryCache.CreateOrUpdate(request.RequestId, response.Value);
             _logger.Log("End saving Execute Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
         }
     }

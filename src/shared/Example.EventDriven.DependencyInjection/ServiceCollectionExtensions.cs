@@ -5,17 +5,21 @@ using Example.EventDriven.Infrastructure;
 using Example.EventDriven.DependencyInjection.Swagger;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Configuration;
+using Example.EventDriven.Application.Request.UpdateRequest;
 
 namespace Example.EventDriven.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services)
         {
             return services.AddApiConfiguration()
                            .AddSwaggerConfiguration()
                            .AddApplicationConfiguration()
-                           .AddInfrastructureConfiguration(configuration);
+                           .AddLoggingManager()
+                           .AddEventManager()
+                           .AddMemoryCacheManager()
+                           .AddHostedService<UpdateRequestStatusService>();
         }
 
         private static IServiceCollection AddApiConfiguration(this IServiceCollection services)
@@ -50,14 +54,10 @@ namespace Example.EventDriven.DependencyInjection
 
         public static IServiceCollection AddWorkerDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddWorkerConfiguration()
-                           .AddApplicationConfiguration()
-                           .AddInfrastructureConfiguration(configuration);
-        }
-
-        private static IServiceCollection AddWorkerConfiguration(this IServiceCollection services)
-        {
-            return services;
+            return services.AddApplicationConfiguration()
+                           .AddLoggingManager()
+                           .AddEventManager()
+                           .AddDatabase(configuration);
         }
     }
 }

@@ -15,22 +15,14 @@ namespace Example.EventDriven.Infrastructure
 {
     public static class InfrastructureDependencyModule
     {
-        public static IServiceCollection AddInfrastructureConfiguration(this IServiceCollection services, IConfiguration configuration)
-        {
-            return services.AddLoggingManager()
-                           .AddEventManager()
-                           .AddMemoryCacheManager()
-                           .AddDatabase(configuration);
-        }
-
-        private static IServiceCollection AddLoggingManager(this IServiceCollection services)
+        public static IServiceCollection AddLoggingManager(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, ConsoleLoggerManager>();
 
             return services;
         }
 
-        private static IServiceCollection AddEventManager(this IServiceCollection services)
+        public static IServiceCollection AddEventManager(this IServiceCollection services)
         {
             services.AddScoped<IEventSenderManager, RabbitMqSenderManager>();
             services.AddScoped<IEventConsumerManager, RabbitMqConsumerManager>();
@@ -38,7 +30,7 @@ namespace Example.EventDriven.Infrastructure
             return services;
         }
 
-        private static IServiceCollection AddMemoryCacheManager(this IServiceCollection services)
+        public static IServiceCollection AddMemoryCacheManager(this IServiceCollection services)
         {
             services.AddMemoryCache();
             services.AddScoped<IMemoryCacheManager, MicrosoftMemoryManager>();
@@ -46,7 +38,7 @@ namespace Example.EventDriven.Infrastructure
             return services;
         }
 
-        private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<SqlServerContext>(options =>
             {

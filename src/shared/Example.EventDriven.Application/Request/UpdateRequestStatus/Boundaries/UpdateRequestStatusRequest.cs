@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Example.EventDriven.Domain.Entitites;
 
 namespace Example.EventDriven.Application.Request.UpdateRequest.Boundaries
 {
-    public class UpdateRequestStatusRequest
-    {
-
-    }
+    public sealed record UpdateRequestStatusRequest(RequestEntity<ProcessEntity> Value);
 }

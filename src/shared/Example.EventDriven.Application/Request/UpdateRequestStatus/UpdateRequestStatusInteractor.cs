@@ -26,7 +26,7 @@ namespace Example.EventDriven.Application.Request.UpdateRequest
             _memoryCache = memoryCache;
         }
 
-        public Task<UpdateRequestStatusResponse> Update(UpdateRequestStatusRequest request, CancellationToken cancellationToken)
+        public Task Update(UpdateRequestStatusRequest request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

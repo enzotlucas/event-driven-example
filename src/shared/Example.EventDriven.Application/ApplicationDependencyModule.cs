@@ -25,7 +25,7 @@ namespace Example.EventDriven.Application
             services.AddScoped<ICreateProcess, CreateProcessInteractor>();
             services.AddScoped<IExecuteProcess, ExecuteProcessInteractor>();
             services.AddScoped<IGetRequestStatus, GetRequestStatusInteractor>();
-            services.AddScoped<ISendEvent, SendEventInteractor>();
+            services.AddScoped<ISendRequest, SendRequestInteractor>();
 
             return services;
         }
@@ -39,7 +39,7 @@ namespace Example.EventDriven.Application
 
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
-            SendEventMapper.Add();
+            SendRequestMapper.Add();
             CreateProcessMapper.Add();
 
             TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());

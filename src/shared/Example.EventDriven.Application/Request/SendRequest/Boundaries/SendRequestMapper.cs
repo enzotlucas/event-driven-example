@@ -3,7 +3,7 @@ using Mapster;
 
 namespace Example.EventDriven.Application.SendEvent.Boundaries
 {
-    public static class SendEventMapper
+    public static class SendRequestMapper
     {
         public static void Add()
         {

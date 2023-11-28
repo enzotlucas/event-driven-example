@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Example.EventDriven.Application.SendEvent
 {
-    public sealed class SendEventValidator : AbstractValidator<SendEventRequest>
+    public sealed class SendRequestValidator : AbstractValidator<SendEventRequest>
     {
-        public SendEventValidator()
+        public SendRequestValidator()
         {
             RuleFor(request => request.OperationName).NotEmpty();
 

@@ -10,14 +10,14 @@ using Mapster;
 
 namespace Example.EventDriven.Application.SendEvent
 {
-    public sealed class SendEventInteractor : ISendEvent
+    public sealed class SendRequestInteractor : ISendRequest
     {
         private readonly ILoggerManager _logger;
         private readonly IEventSenderManager _eventManager;
         private readonly IValidator<SendEventRequest> _validator;
         private readonly IMemoryCacheManager _memoryCache;
 
-        public SendEventInteractor(
+        public SendRequestInteractor(
             ILoggerManager logger, 
             IEventSenderManager eventManager, 
             IValidator<SendEventRequest> validator, 
@@ -29,7 +29,7 @@ namespace Example.EventDriven.Application.SendEvent
             _memoryCache = memoryCache;
         }
 
-        public async Task<SendEventResponse> Send(SendEventRequest request, CancellationToken cancellationToken)
+        public async Task<SendRequestResponse> Send(SendEventRequest request, CancellationToken cancellationToken)
         {
             _logger.Log("Starting sending the event", LoggerManagerSeverity.INFORMATION, ("request", request));
 
@@ -54,7 +54,7 @@ namespace Example.EventDriven.Application.SendEvent
 
             _logger.Log("Ending sending the event", LoggerManagerSeverity.INFORMATION, ("requestEntity", requestEntity));
 
-            return new SendEventResponse(requestId);
+            return new SendRequestResponse(requestId);
         }
     }
 }

@@ -13,12 +13,12 @@ namespace Example.EventDriven.API.Features.V1.Controllers
     [ApiVersion("1.0")]
     public sealed class ProccessController : BaseController
     {
-        private readonly ISendEvent _sendEvent;
+        private readonly ISendRequest _sendRequest;
         private readonly IGetRequestStatus _getRequestStatus;
 
-        public ProccessController(IConfiguration configuration, ISendEvent sendEvent, IGetRequestStatus getRequestStatus) : base(configuration)
+        public ProccessController(IConfiguration configuration, ISendRequest sendRequest, IGetRequestStatus getRequestStatus) : base(configuration)
         {
-            _sendEvent = sendEvent;
+            _sendRequest = sendRequest;
             _getRequestStatus = getRequestStatus;
         }
 
@@ -32,7 +32,7 @@ namespace Example.EventDriven.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status202Accepted, StatusCode = StatusCodes.Status202Accepted, Type = typeof(CreateProcessResponse))]
         public async Task<IActionResult> Post(CreateProcessRequest request, CancellationToken cancellationToken)
         {
-            var response = await _sendEvent.Send(request.Adapt<SendEventRequest>(), cancellationToken);
+            var response = await _sendRequest.Send(request.Adapt<SendEventRequest>(), cancellationToken);
 
             return Accepted(response);
         }

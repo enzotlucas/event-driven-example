@@ -1,5 +1,4 @@
-﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
-using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
+﻿using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
 using Mapster;
 
 namespace Example.EventDriven.Application.ExecuteProcess.Boundaries
@@ -11,7 +10,7 @@ namespace Example.EventDriven.Application.ExecuteProcess.Boundaries
             TypeAdapterConfig<ExecuteProcessResponse, UpdateRequestStatusEvent>
                .NewConfig()
                .Map(destination => destination.RequestId, source => source.RequestId)
-               .Map(destination => destination.Value, source => source.Value);
+               .Map(destination => destination.Value, source => new UpdateRequestStatusRequest(source.Value));
         }
     }
 }

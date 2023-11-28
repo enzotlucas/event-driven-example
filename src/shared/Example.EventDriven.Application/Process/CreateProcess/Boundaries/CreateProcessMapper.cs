@@ -40,7 +40,7 @@ namespace Example.EventDriven.Application.CreateProcess.Boundaries
             TypeAdapterConfig<CreateProcessResponse, UpdateRequestStatusEvent>
                 .NewConfig()
                 .Map(destination => destination.RequestId, source => source.RequestId)
-                .Map(destination => destination.Value, source => source.Value);
+                .Map(destination => destination.Value, source => new UpdateRequestStatusRequest(source.Value));
         }
     }
 }

@@ -9,7 +9,7 @@ using Mapster;
 
 namespace Example.EventDriven.Process.ExecuteProcess.Application
 {
-    public class ExecuteProcessService : BaseWorker<ExecuteProcessEvent>
+    public sealed class ExecuteProcessService : BaseWorker<ExecuteProcessEvent>
     {
         private readonly IEventConsumerManager _eventConsumer;
         private readonly ILoggerManager _logger;

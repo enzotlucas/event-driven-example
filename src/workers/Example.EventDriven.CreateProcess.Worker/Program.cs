@@ -1,7 +1,7 @@
-﻿using Example.EventDriven.CreateProcess.Worker;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Example.EventDriven.DependencyInjection;
+using Example.EventDriven.Application.Process.CreateProcess;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((builder, services) =>

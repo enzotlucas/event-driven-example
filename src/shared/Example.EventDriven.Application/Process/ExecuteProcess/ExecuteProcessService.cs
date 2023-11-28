@@ -5,7 +5,7 @@ using Example.EventDriven.Application.ExecuteProcess;
 using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Gateways.MemoryCache;
 
-namespace Example.EventDriven.ExecuteProcess.Worker
+namespace Example.EventDriven.Process.ExecuteProcess.Application
 {
     public class ExecuteProcessService : BaseWorker<ExecuteProcessEvent>
     {

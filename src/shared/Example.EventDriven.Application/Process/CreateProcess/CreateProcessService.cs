@@ -5,7 +5,7 @@ using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Gateways.MemoryCache;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Example.EventDriven.CreateProcess.Worker
+namespace Example.EventDriven.Application.Process.CreateProcess
 {
     public sealed class CreateProcessService : BaseWorker<CreateProcessEvent>
     {

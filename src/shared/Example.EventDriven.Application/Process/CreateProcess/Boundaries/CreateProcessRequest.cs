@@ -1,7 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
+    [ExcludeFromCodeCoverage]
     public sealed class CreateProcessRequest
     {
         [JsonIgnore]

@@ -9,10 +9,12 @@ using Example.EventDriven.Application.SendEvent.Boundaries;
 using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Example.EventDriven.Application
 {
+    [ExcludeFromCodeCoverage]
     public static class ApplicationDependencyModule
     {
         public static IServiceCollection AddApplicationConfiguration(this IServiceCollection services)

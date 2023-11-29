@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.API.Features.Core
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
+    [ExcludeFromCodeCoverage]
     public class BaseController : ControllerBase
     {
         private readonly int _cancelRequisitionAfterInSeconds;

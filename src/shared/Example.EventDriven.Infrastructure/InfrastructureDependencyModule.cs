@@ -11,9 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Infrastructure
 {
+    [ExcludeFromCodeCoverage]
     public static class InfrastructureDependencyModule
     {
         public static IServiceCollection AddLoggingManager(this IServiceCollection services)

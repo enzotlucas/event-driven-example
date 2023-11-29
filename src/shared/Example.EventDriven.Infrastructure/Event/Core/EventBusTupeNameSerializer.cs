@@ -1,8 +1,10 @@
 ﻿using EasyNetQ;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Infrastructure.Event.Configurations
 {
+    [ExcludeFromCodeCoverage]
     public sealed class EventBusTypeNameSerializer : ITypeNameSerializer
     {
         private readonly ConcurrentDictionary<Type, string> serializedTypes = new();

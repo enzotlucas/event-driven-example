@@ -1,8 +1,9 @@
 ﻿using Example.EventDriven.Domain.Entitites;
-using Example.EventDriven.Domain.ValueObjects;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
+    [ExcludeFromCodeCoverage]
     public sealed class CreateProcessResponse
     {
         public RequestEntity<ProcessEntity> Value { get; set; }

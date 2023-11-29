@@ -1,13 +1,24 @@
 using Example.EventDriven.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace Example.EventDriven.API;
 
-builder.Services.AddApiDependencyInjection(builder.Configuration);
+[ExcludeFromCodeCoverage]
+internal static class Program
+{
+    private static void Main(string[] args)
+    {
 
-var app = builder.Build();
+        var builder = WebApplication.CreateBuilder(args);
 
-app.UseApiDependencyInjection();
+        builder.Services.AddApiDependencyInjection(builder.Configuration);
 
-app.MapControllers();
+        var app = builder.Build();
 
-app.Run();
+        app.UseApiDependencyInjection();
+
+        app.MapControllers();
+
+        app.Run();
+    }
+}

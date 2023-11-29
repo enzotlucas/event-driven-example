@@ -1,8 +1,10 @@
 ﻿using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
 using Mapster;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Application.ExecuteProcess.Boundaries
 {
+    [ExcludeFromCodeCoverage]
     public static class ExecuteProcessMapper
     {
         public static void Add()

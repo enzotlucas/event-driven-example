@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Example.EventDriven.UnitTests.Application.Request
 {
-    public class UpdateRequestStatus
+    public class UpdateRequestStatusTests
     {
 
     }

@@ -7,10 +7,12 @@ using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.API.Features.V1.Controllers
 {
     [ApiVersion("1.0")]
+    [ExcludeFromCodeCoverage]
     public sealed class ProccessController : BaseController
     {
         private readonly ISendRequest _sendRequest;

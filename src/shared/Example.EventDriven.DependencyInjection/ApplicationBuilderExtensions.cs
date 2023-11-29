@@ -1,8 +1,10 @@
 ﻿using Example.EventDriven.DependencyInjection.Swagger;
 using Microsoft.AspNetCore.Builder;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.DependencyInjection
 {
+    [ExcludeFromCodeCoverage]
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder UseApiDependencyInjection(this IApplicationBuilder app)

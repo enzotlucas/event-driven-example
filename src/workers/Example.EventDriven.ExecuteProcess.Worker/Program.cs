@@ -2,14 +2,24 @@
 using Microsoft.Extensions.Hosting;
 using Example.EventDriven.DependencyInjection;
 using Example.EventDriven.Process.ExecuteProcess.Application;
+using System.Diagnostics.CodeAnalysis;
 
-var host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices((builder, services) =>
+namespace Example.EventDriven.ExecuteProcess.Worker;
+
+[ExcludeFromCodeCoverage]
+internal static class Program
+{
+    private static async Task Main(string[] args)
     {
-        services.AddWorkerDependencyInjection(builder.Configuration);
+        var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices((builder, services) =>
+            {
+                services.AddWorkerDependencyInjection(builder.Configuration);
 
-        services.AddHostedService<ExecuteProcessService>();
-    })
-    .Build();
+                services.AddHostedService<ExecuteProcessService>();
+            })
+            .Build();
 
-await host.RunAsync();
+        await host.RunAsync();
+    }
+}

@@ -3,9 +3,11 @@ using EasyNetQ.DI;
 using Microsoft.Extensions.Configuration;
 using Polly;
 using RabbitMQ.Client.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Infrastructure.Event.Configurations
 {
+    [ExcludeFromCodeCoverage]
     public class BaseRabbitMqManager
     {
         private readonly string _connectionString;

@@ -5,9 +5,11 @@ using Example.EventDriven.Domain.ValueObjects;
 using Mapster;
 using Microsoft.AspNetCore.Http.Features.Authentication;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
+    [ExcludeFromCodeCoverage]
     public static class CreateProcessMapper
     {
         public static void Add()

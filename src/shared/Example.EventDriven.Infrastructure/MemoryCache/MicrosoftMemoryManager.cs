@@ -1,8 +1,10 @@
 ﻿using Example.EventDriven.Domain.Gateways.MemoryCache;
 using Microsoft.Extensions.Caching.Memory;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Infrastructure.MemoryCache
 {
+    [ExcludeFromCodeCoverage]
     public sealed class MicrosoftMemoryManager : IMemoryCacheManager
     {
         private readonly IMemoryCache _memoryCache;

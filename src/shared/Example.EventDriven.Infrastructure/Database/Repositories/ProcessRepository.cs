@@ -3,9 +3,11 @@ using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Repositories;
 using Example.EventDriven.Infrastructure.Database.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Infrastructure.Database.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public sealed class ProcessRepository : IProcessRepository
     {
         private readonly SqlServerContext _context;

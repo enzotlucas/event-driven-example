@@ -1,8 +1,10 @@
 ﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Mapster;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Application.SendEvent.Boundaries
 {
+    [ExcludeFromCodeCoverage]
     public static class SendRequestMapper
     {
         public static void Add()

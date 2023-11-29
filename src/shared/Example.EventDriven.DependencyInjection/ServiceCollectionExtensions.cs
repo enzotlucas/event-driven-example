@@ -6,9 +6,11 @@ using Example.EventDriven.DependencyInjection.Swagger;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Configuration;
 using Example.EventDriven.Application.Request.UpdateRequest;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.DependencyInjection
 {
+    [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services, IConfiguration configuration)

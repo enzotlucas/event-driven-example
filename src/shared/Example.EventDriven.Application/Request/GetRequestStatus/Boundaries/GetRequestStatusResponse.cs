@@ -1,9 +1,11 @@
 ﻿using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.ValueObjects;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Example.EventDriven.Application.GetRequestStatus.Boundaries
 {
+    [ExcludeFromCodeCoverage]
     public sealed class GetRequestStatusResponse<T>
     {
         public RequestEntity<T> Data { get; set; }

@@ -1,5 +1,8 @@
-﻿namespace Example.EventDriven.Domain.Gateways.Event
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Example.EventDriven.Domain.Gateways.Event
 {
+    [ExcludeFromCodeCoverage]
     public abstract class GenericEvent<T>
     {
         public DateTime Timestamp { get; private set; }

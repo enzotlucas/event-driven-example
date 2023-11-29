@@ -11,14 +11,14 @@ namespace Example.EventDriven.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services)
+        public static IServiceCollection AddApiDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
             return services.AddApiConfiguration()
                            .AddSwaggerConfiguration()
                            .AddApplicationConfiguration()
                            .AddLoggingManager()
                            .AddEventManager()
-                           .AddMemoryCacheManager()
+                           .AddMemoryCacheManager(configuration)
                            .AddHostedService<UpdateRequestStatusService>();
         }
 

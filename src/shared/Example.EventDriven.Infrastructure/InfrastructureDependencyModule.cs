@@ -8,6 +8,7 @@ using Example.EventDriven.Infrastructure.Event;
 using Example.EventDriven.Infrastructure.Logger;
 using Example.EventDriven.Infrastructure.MemoryCache;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,10 +31,14 @@ namespace Example.EventDriven.Infrastructure
             return services;
         }
 
-        public static IServiceCollection AddMemoryCacheManager(this IServiceCollection services)
+        public static IServiceCollection AddMemoryCacheManager(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMemoryCache();
             services.AddScoped<IMemoryCacheManager, MicrosoftMemoryManager>();
+            services.AddSingleton(new MemoryCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromMinutes(configuration.GetValue<int>("MemoryCache:SlidingExpirationInMinutes", 2))
+            });
 
             return services;
         }
@@ -47,10 +52,10 @@ namespace Example.EventDriven.Infrastructure
 
             services.AddScoped<SqlServerContext>();
             services.AddScoped<IProcessRepository, ProcessRepository>();
-                
+
             using var serviceProvider = services.BuildServiceProvider();
             using var context = serviceProvider.GetRequiredService<SqlServerContext>();
-            
+
             context.Database.Migrate();
 
             return services;

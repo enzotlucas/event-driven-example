@@ -6,20 +6,22 @@ namespace Example.EventDriven.Infrastructure.MemoryCache
     public sealed class MicrosoftMemoryManager : IMemoryCacheManager
     {
         private readonly IMemoryCache _memoryCache;
+        private readonly MemoryCacheEntryOptions _persistenceOptions;
 
-        public MicrosoftMemoryManager(IMemoryCache memoryCache)
+        public MicrosoftMemoryManager(IMemoryCache memoryCache, MemoryCacheEntryOptions persistenceOptions)
         {
             _memoryCache = memoryCache;
+            _persistenceOptions = persistenceOptions;
         }
 
-        public Task CreateOrUpdate(Guid requestId, object data)
+        public async Task CreateOrUpdate(Guid requestId, object data, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            await Task.Run(() => _memoryCache.Set(requestId, data, _persistenceOptions), cancellationToken);
         }
 
-        public Task<bool> ExistsAsync(Guid requestId, CancellationToken cancellationToken)
+        public async Task<bool> ExistsAsync(Guid requestId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => _memoryCache.TryGetValue<object>(requestId, out _), cancellationToken);
         }
 
         public async Task<T> GetAsync<T>(Guid requestId, CancellationToken cancellationToken)
@@ -30,7 +32,7 @@ namespace Example.EventDriven.Infrastructure.MemoryCache
                     return value;
 
                 return default;
-            }, 
+            },
             cancellationToken);
         }
     }

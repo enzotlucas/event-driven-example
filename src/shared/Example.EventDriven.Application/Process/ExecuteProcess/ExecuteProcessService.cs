@@ -3,7 +3,6 @@ using Example.EventDriven.Domain.Gateways.Event;
 using Microsoft.Extensions.DependencyInjection;
 using Example.EventDriven.Application.ExecuteProcess;
 using Example.EventDriven.Domain.Gateways.Logger;
-using Example.EventDriven.Domain.Gateways.MemoryCache;
 using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
 using Mapster;
 
@@ -46,7 +45,6 @@ namespace Example.EventDriven.Process.ExecuteProcess.Application
 
             _logger.Log("Begin saving Execute Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
             await eventSender.Send(response.Adapt<UpdateRequestStatusEvent>(), cancellationToken);
-            //await memoryCache.CreateOrUpdate(request.RequestId, response.Value);
             _logger.Log("End saving Execute Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
         }
     }

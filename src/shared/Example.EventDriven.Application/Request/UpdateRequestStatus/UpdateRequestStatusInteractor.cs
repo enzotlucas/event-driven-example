@@ -34,7 +34,6 @@ namespace Example.EventDriven.Application.Request.UpdateRequest
         public async Task Update(UpdateRequestStatusRequest request, CancellationToken cancellationToken)
         {
             _logger.Log("Starting updating the request status", LoggerManagerSeverity.INFORMATION, ("request", request));
-
             _logger.Log("Validating the request", LoggerManagerSeverity.DEBUG, ("request", request));
 
             var validation = await _validator.ValidateAsync(request, cancellationToken);
@@ -60,7 +59,7 @@ namespace Example.EventDriven.Application.Request.UpdateRequest
             }
 
             _logger.Log("Updating request on memory cache", LoggerManagerSeverity.DEBUG, ("requestEntity", request.Value), ("requestId", request.RequestId));
-            await _memoryCache.CreateOrUpdate(request.RequestId, request.Value);
+            await _memoryCache.CreateOrUpdate(request.RequestId, request.Value, cancellationToken);
             _logger.Log("Request updated on memory cache", LoggerManagerSeverity.DEBUG, ("requestEntity", request.Value), ("requestId", request.RequestId));
 
             _logger.Log("Ending sending the event", LoggerManagerSeverity.INFORMATION, ("request", request));

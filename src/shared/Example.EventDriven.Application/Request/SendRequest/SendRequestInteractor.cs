@@ -49,7 +49,7 @@ namespace Example.EventDriven.Application.SendEvent
             };
 
             _logger.Log("Creating request on memory cache", LoggerManagerSeverity.DEBUG, ("requestEntity", requestEntity), ("requestId", requestId));
-            await _memoryCache.CreateOrUpdate(requestId, requestEntity);
+            await _memoryCache.CreateOrUpdate(requestId, requestEntity, cancellationToken);
             _logger.Log("Request created on memory cache", LoggerManagerSeverity.DEBUG, ("requestEntity", requestEntity), ("requestId", requestId));
 
             _logger.Log("Ending sending the event", LoggerManagerSeverity.INFORMATION, ("requestEntity", requestEntity));

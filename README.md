@@ -18,6 +18,7 @@ docker-compose up --build
 | Link | Description |
 |------|-------------|
 | [Related documentations page](/docs/related-documentations.md) | Documentations related to the subject 
+| [Process flow](/docs/process-flow.png) | The drawing of the process flow 
 
 ## Give a star
 If you found the project helpful or just want to help the developer, give the project a star!

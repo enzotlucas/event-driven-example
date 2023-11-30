@@ -8,6 +8,6 @@ namespace Example.EventDriven.Domain.Gateways.Event
                                           Func<TEvent, CancellationToken, Task> onMessage,
                                           Action<ISubscriptionConfiguration> configuration,
                                           CancellationToken cancellationToken)
-                                          where TEvent : GenericEvent<TEventRequest>;
+                                          where TEvent : BaseEvent<TEventRequest>;
     }
 }

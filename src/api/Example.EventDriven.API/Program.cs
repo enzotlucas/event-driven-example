@@ -8,7 +8,6 @@ internal static class Program
 {
     private static void Main(string[] args)
     {
-
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddApiDependencyInjection(builder.Configuration);

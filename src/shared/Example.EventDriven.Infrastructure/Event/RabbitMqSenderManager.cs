@@ -12,7 +12,7 @@ namespace Example.EventDriven.Infrastructure.Event
         {
         }
 
-        public async Task<Guid> Send<TEventRequest>(GenericEvent<TEventRequest> genericEvent, CancellationToken cancellationToken)
+        public async Task<Guid> Send<TEventRequest>(BaseEvent<TEventRequest> genericEvent, CancellationToken cancellationToken)
         {
             if(genericEvent.RequestId == Guid.Empty)            
                 genericEvent.RequestId = Guid.NewGuid();            

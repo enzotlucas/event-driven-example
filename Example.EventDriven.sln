@@ -32,6 +32,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0FB0073A-B0A2-48CF-9C3B-27E9DA226B31}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
+		docs\process-flow.png = docs\process-flow.png
 		README.md = README.md
 		docs\related-documentations.md = docs\related-documentations.md
 	EndProjectSection

@@ -12,7 +12,7 @@ namespace Example.EventDriven.Infrastructure.Event.Configurations
     {
         private readonly string _connectionString;
 
-        protected IBus MessageBus { get; set; }
+        public IBus MessageBus { get; set; }
         protected bool IsConnected => MessageBus?.Advanced?.IsConnected ?? false;
 
         public BaseRabbitMqManager(IConfiguration configuration)
@@ -50,7 +50,7 @@ namespace Example.EventDriven.Infrastructure.Event.Configurations
         {
             if (disposing)
             {
-                MessageBus.Dispose();
+                MessageBus?.Dispose();
             }
         }
     }

@@ -3,6 +3,7 @@ using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
 using Example.EventDriven.Domain.Gateways.Event;
 using Example.EventDriven.Domain.Gateways.Logger;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 namespace Example.EventDriven.Application.Request.UpdateRequest
 {
@@ -21,12 +22,25 @@ namespace Example.EventDriven.Application.Request.UpdateRequest
             _serviceProvider = serviceProvider;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken) =>
-            await _eventConsumer.SubscribeAsync<UpdateRequestStatusEvent, UpdateRequestStatusRequest>(
-                nameof(ExecuteProcessEvent),
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            Subscribe(stoppingToken);
+
+            return Task.CompletedTask;
+        }
+
+        protected override void Subscribe(CancellationToken cancellationToken)
+        {
+            _eventConsumer.SubscribeAsync<UpdateRequestStatusEvent, UpdateRequestStatusRequest>(
+                nameof(UpdateRequestStatusEvent),
                 async (request, requestCancellationToken) => await ProcessEventAsync(request, requestCancellationToken),
-                configuration => configuration.WithTopic(nameof(ExecuteProcessEvent)),
-                stoppingToken);
+                configuration => configuration.WithTopic(nameof(UpdateRequestStatusEvent)),
+                cancellationToken);
+
+            _eventConsumer.MessageBus.Advanced.Connected += RefreshConnection;
+
+            _logger.Log("Update request status Service is listening", LoggerManagerSeverity.INFORMATION);
+        }
 
         protected override async Task ProcessEventAsync(UpdateRequestStatusEvent request, CancellationToken cancellationToken)
         {

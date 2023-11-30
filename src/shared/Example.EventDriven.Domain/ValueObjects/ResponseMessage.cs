@@ -4,6 +4,7 @@
     {
         Default,
         ProcessAlreadyExists,
-        ErrorCreatingProcess
+        ErrorCreatingProcess,
+        ProcessDontExists
     }
 }

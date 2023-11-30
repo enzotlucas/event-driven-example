@@ -6,13 +6,13 @@ services:
     networks:
       - backend
     hostname: 'sqlserver'
-    container_name: sqlserver-restaurantreserves
+    container_name: sqlserver
     environment:
       ACCEPT_EULA: 'Y'
       SA_PASSWORD: "AvS#a1s45s"
       MSSQL_PID: Express
     volumes:
-      - c:\dados\volumes\mssql:/var/opt/mssql3
+      - c:\data\volumes\mssql:/var/opt/mssql3
     ports:
       - '11433:1433'    
     expose:
@@ -20,7 +20,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq-restaurantreserves'
+    container_name: 'rabbitmq'
     ports:
         - 5672:5672
         - 15672:15672
@@ -29,41 +29,6 @@ services:
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - backend
-
-  api:
-    image: ${DOCKER_REGISTRY-}api
-    networks:
-      - backend
-    build:
-      context: ../
-      dockerfile: ./src/api/Example.EventDriven.API/Dockerfile
-    container_name: api
-    depends_on:
-      - sqlserver
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
-    ports:
-      - "5015:80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-   
-  createprocessworker:
-    image: ${DOCKER_REGISTRY-}createprocessworker
-    networks:
-      - backend
-    build:
-      context: ../
-      dockerfile: ./src/workers/Example.EventDriven.CreateProcess.Worker/Dockerfile
-    container_name: createprocessworker
-    depends_on:
-      - sqlserver
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   executeprocessworker:
     image: ${DOCKER_REGISTRY-}executeprocessworker
@@ -74,12 +39,62 @@ services:
       dockerfile: ./src/workers/Example.EventDriven.ExecuteProcess.Worker/Dockerfile
     container_name: executeprocessworker
     depends_on:
+      - rabbitmq
       - sqlserver
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+
+  createprocessworker:
+    image: ${DOCKER_REGISTRY-}createprocessworker
+    networks:
+      - backend
+    build:
+      context: ../
+      dockerfile: ./src/workers/Example.EventDriven.CreateProcess.Worker/Dockerfile
+    container_name: createprocessworker
+    depends_on:
+      - executeprocessworker
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    networks:
+      - backend
+    build:
+      context: ../
+      dockerfile: ./src/api/Example.EventDriven.API/Dockerfile
+    container_name: api
+    depends_on:
+      - createprocessworker
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5015:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
 
 networks:
   backend:

@@ -22,16 +22,27 @@ namespace Example.EventDriven.Application.Process.CreateProcess
             _eventConsumer = eventConsumer;
             _logger = logger;
             _serviceProvider = serviceProvider;
-
-            _logger.Log("Application started", LoggerManagerSeverity.INFORMATION);
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken) => 
-            await _eventConsumer.SubscribeAsync<CreateProcessEvent, CreateProcessRequest>(
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            Subscribe(stoppingToken);
+
+            return Task.CompletedTask;
+        }
+
+        protected override void Subscribe(CancellationToken cancellationToken)
+        {
+            _eventConsumer.SubscribeAsync<CreateProcessEvent, CreateProcessRequest>(
                 nameof(CreateProcessEvent),
                 async (request, requestCancellationToken) => await ProcessEventAsync(request, requestCancellationToken),
                 configuration => configuration.WithTopic(nameof(CreateProcessEvent)),
-                stoppingToken);
+                cancellationToken);
+
+            _eventConsumer.MessageBus.Advanced.Connected += RefreshConnection;
+
+            _logger.Log("Create Process Service is listening", LoggerManagerSeverity.INFORMATION);
+        }
 
         protected override async Task ProcessEventAsync(CreateProcessEvent request, CancellationToken cancellationToken)
         {
@@ -48,7 +59,7 @@ namespace Example.EventDriven.Application.Process.CreateProcess
                     ("response", response));
 
             _logger.Log("Begin saving Create Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
-            await eventSender.Send(response.Adapt<UpdateRequestStatusEvent>(), cancellationToken);
+            await eventSender.Send<UpdateRequestStatusEvent, UpdateRequestStatusRequest>(response.Adapt<UpdateRequestStatusEvent>(), cancellationToken);
             _logger.Log("End saving Create Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
         }
     }

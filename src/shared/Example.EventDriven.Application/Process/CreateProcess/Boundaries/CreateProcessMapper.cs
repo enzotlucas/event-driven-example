@@ -1,11 +1,11 @@
-﻿using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
+﻿using Example.EventDriven.Application.ExecuteProcess.Boundaries;
+using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
 using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.ValueObjects;
 using Mapster;
-using Microsoft.AspNetCore.Http.Features.Authentication;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using FluentValidation.Results;
 
 namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
@@ -26,9 +26,17 @@ namespace Example.EventDriven.Application.CreateProcess.Boundaries
                 .NewConfig()
                 .Map(destination => destination.Value, source => new RequestEntity<ProcessEntity>
                 (
-                    Enum.Parse<ResponseMessage>(source.ErrorMessage), 
+                    Enum.Parse<ResponseMessage>(source.Errors[0].ErrorMessage),
                     RequestStatus.InvalidInformation
                 ));
+
+            TypeAdapterConfig<CreateProcessRequest, ProcessEntity>
+                .NewConfig()
+                .Map(destination => destination.Name, source => source.Name)
+                .Map(destination => destination.Description, source => source.Description)
+                .Map(destination => destination.Status, source => ProcessStatus.Created)
+                .Map(destination => destination.CreatedAt, source => DateTime.Now)
+                .Map(destination => destination.LastUpdatedAt, source => DateTime.Now);
 
             TypeAdapterConfig<ProcessEntity, CreateProcessResponse>
                 .NewConfig()
@@ -43,6 +51,10 @@ namespace Example.EventDriven.Application.CreateProcess.Boundaries
                 .NewConfig()
                 .Map(destination => destination.RequestId, source => source.RequestId)
                 .Map(destination => destination.Value, source => new UpdateRequestStatusRequest(source.Value, source.RequestId));
+
+            TypeAdapterConfig<CreateProcessRequest, ExecuteProcessEvent>
+                .NewConfig()
+                .Map(destination => destination.Value, source => new ExecuteProcessRequest(source.Name));
         }
     }
 }

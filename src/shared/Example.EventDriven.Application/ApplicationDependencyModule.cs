@@ -17,18 +17,22 @@ namespace Example.EventDriven.Application
     [ExcludeFromCodeCoverage]
     public static class ApplicationDependencyModule
     {
-        public static IServiceCollection AddApplicationConfiguration(this IServiceCollection services)
+        public static IServiceCollection AddApiApplicationConfiguration(this IServiceCollection services)
         {
-            return services.AddUseCases()
+            return services.AddApiUseCases()
                            .AddValidators()
                            .AddMappers();
         }
 
-        public static IServiceCollection AddUseCases(this IServiceCollection services)
+        public static IServiceCollection AddWorkerApplicationConfiguration(this IServiceCollection services)
         {
-            services.AddScoped<ICreateProcess, CreateProcessInteractor>();
-            services.AddScoped<IExecuteProcess, ExecuteProcessInteractor>();
+            return services.AddWorkerUseCases()
+                           .AddValidators()
+                           .AddMappers();
+        }
 
+        private static IServiceCollection AddApiUseCases(this IServiceCollection services)
+        {
             services.AddScoped<IGetRequestStatus, GetRequestStatusInteractor>();
             services.AddScoped<ISendRequest, SendRequestInteractor>();
             services.AddScoped<IUpdateRequestStatus, UpdateRequestStatusInteractor>();
@@ -36,14 +40,22 @@ namespace Example.EventDriven.Application
             return services;
         }
 
-        public static IServiceCollection AddValidators(this IServiceCollection services)
+        private static IServiceCollection AddWorkerUseCases(this IServiceCollection services)
+        {
+            services.AddScoped<ICreateProcess, CreateProcessInteractor>();
+            services.AddScoped<IExecuteProcess, ExecuteProcessInteractor>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddValidators(this IServiceCollection services)
         {
             services.AddValidatorsFromAssemblyContaining<CreateProcessValidator>();
 
             return services;
         }
 
-        public static IServiceCollection AddMappers(this IServiceCollection services)
+        private static IServiceCollection AddMappers(this IServiceCollection services)
         {
             CreateProcessMapper.Add();
             ExecuteProcessMapper.Add();

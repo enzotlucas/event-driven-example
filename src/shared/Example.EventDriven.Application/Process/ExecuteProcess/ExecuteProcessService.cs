@@ -23,12 +23,25 @@ namespace Example.EventDriven.Process.ExecuteProcess.Application
             _serviceProvider = serviceProvider;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken) =>
-            await _eventConsumer.SubscribeAsync<ExecuteProcessEvent, ExecuteProcessRequest>(
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            Subscribe(stoppingToken);
+
+            return Task.CompletedTask;
+        }
+
+        protected override void Subscribe(CancellationToken cancellationToken)
+        {
+            _eventConsumer.SubscribeAsync<ExecuteProcessEvent, ExecuteProcessRequest>(
                 nameof(ExecuteProcessEvent),
                 async (request, requestCancellationToken) => await ProcessEventAsync(request, requestCancellationToken),
                 configuration => configuration.WithTopic(nameof(ExecuteProcessEvent)),
-                stoppingToken);
+                cancellationToken);
+
+            _eventConsumer.MessageBus.Advanced.Connected += RefreshConnection;
+
+            _logger.Log("Execute Process Service is listening", LoggerManagerSeverity.INFORMATION);
+        }
 
         protected override async Task ProcessEventAsync(ExecuteProcessEvent request, CancellationToken cancellationToken)
         {
@@ -44,7 +57,7 @@ namespace Example.EventDriven.Process.ExecuteProcess.Application
                 ("request", request), ("response", response));
 
             _logger.Log("Begin saving Execute Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
-            await eventSender.Send(response.Adapt<UpdateRequestStatusEvent>(), cancellationToken);
+            await eventSender.Send<UpdateRequestStatusEvent, UpdateRequestStatusRequest>(response.Adapt<UpdateRequestStatusEvent>(), cancellationToken);
             _logger.Log("End saving Execute Process business rule response on memory cache", LoggerManagerSeverity.DEBUG);
         }
     }

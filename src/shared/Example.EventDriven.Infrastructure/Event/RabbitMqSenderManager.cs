@@ -12,14 +12,18 @@ namespace Example.EventDriven.Infrastructure.Event
         {
         }
 
-        public async Task<Guid> Send<TEventRequest>(BaseEvent<TEventRequest> genericEvent, CancellationToken cancellationToken)
+        public async Task<Guid> Send<TEvent, TEventRequest>(TEvent genericEvent, CancellationToken cancellationToken) where TEvent : BaseEvent<TEventRequest>
         {
-            if(genericEvent.RequestId == Guid.Empty)            
-                genericEvent.RequestId = Guid.NewGuid();            
+            if (genericEvent.RequestId == Guid.Empty)
+                genericEvent.RequestId = Guid.NewGuid();
 
             TryConnect();
 
-            await MessageBus.PubSub.PublishAsync(genericEvent, configure => configure.WithTopic(genericEvent.OperationName), cancellationToken);
+            await MessageBus.PubSub.PublishAsync(genericEvent, configure =>
+            {
+                configure.WithTopic(genericEvent.OperationName);
+            }, 
+            cancellationToken);
 
             return genericEvent.RequestId;
         }

@@ -7,5 +7,10 @@ namespace Example.EventDriven.Domain.Gateways.Event
     public abstract class BaseWorker<TEvent> : BackgroundService
     {
         protected abstract Task ProcessEventAsync(TEvent request, CancellationToken cancellationToken);
+        protected abstract void Subscribe(CancellationToken cancellationToken);
+        protected void RefreshConnection(object s, EventArgs e)
+        {
+            Subscribe(CancellationToken.None);
+        }
     }
 }

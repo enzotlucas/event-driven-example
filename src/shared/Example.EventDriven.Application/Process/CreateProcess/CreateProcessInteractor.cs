@@ -84,7 +84,7 @@ namespace Example.EventDriven.Application.CreateProcess
             _logger.Log("Process created on database", LoggerManagerSeverity.DEBUG, ("process", process));
             _logger.Log("Sending execute process event", LoggerManagerSeverity.DEBUG, ("request", request));
 
-            await _eventManager.Send(request.Adapt<ExecuteProcessEvent>(), cancellationToken);
+            await _eventManager.Send<ExecuteProcessEvent, ExecuteProcessRequest>(request.Adapt<ExecuteProcessEvent>(), cancellationToken);
             
             _logger.Log("Event execute process sent", LoggerManagerSeverity.DEBUG, ("request", request), ("requestId", request.RequestId));
             _logger.Log("Ending process creation", LoggerManagerSeverity.INFORMATION, ("request", request), ("entity", entity));

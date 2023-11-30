@@ -1,4 +1,5 @@
 ﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
+using Example.EventDriven.Application.ExecuteProcess.Boundaries;
 using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.Extensions;
@@ -38,7 +39,7 @@ namespace Example.EventDriven.Application.SendEvent
             _logger.Log("Request is valid", LoggerManagerSeverity.DEBUG, ("request", request));
 
             _logger.Log("Sending event", LoggerManagerSeverity.DEBUG, ("request", request));
-            var requestId = await _eventManager.Send(request.Adapt<CreateProcessEvent>(), cancellationToken);
+            var requestId = await _eventManager.Send<CreateProcessEvent, CreateProcessRequest>(request.Adapt<CreateProcessEvent>(), cancellationToken);
             _logger.Log("Event sent", LoggerManagerSeverity.DEBUG, ("request", request), ("requestId", requestId));
 
             var requestEntity = new RequestEntity<ProcessEntity>

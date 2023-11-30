@@ -5,6 +5,10 @@ namespace Example.EventDriven.Application.ExecuteProcess
 {
     public sealed class ExecuteProcessValidator : AbstractValidator<ExecuteProcessRequest>
     {
-
+        public ExecuteProcessValidator()
+        {
+            RuleFor(request => request.Name)
+              .NotEmpty();
+        }
     }
 }

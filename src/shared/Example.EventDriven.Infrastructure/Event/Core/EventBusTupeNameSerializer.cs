@@ -14,7 +14,7 @@ namespace Example.EventDriven.Infrastructure.Event.Configurations
         {
             return deSerializedTypes.GetOrAdd(typeName, t =>
             {
-                var type = Type.GetType($"{t}, Restaurant.Core");
+                var type = Type.GetType($"{t}, Example.EventDriven.Application");
                 if (type == null)
                 {
                     throw new EasyNetQException("Cannot find type {0}", t);

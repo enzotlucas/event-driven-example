@@ -7,7 +7,8 @@ namespace Example.EventDriven.Application.Request.UpdateRequest
     {
         public UpdateRequestStatusValidator()
         {
-            
+            RuleFor(request => request.RequestId)
+              .NotEmpty();
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IEventSenderManager : IDisposable
     {
-        Task<Guid> Send<TEventRequest>(BaseEvent<TEventRequest> genericEvent, CancellationToken cancellationToken);
+        Task<Guid> Send<TEvent, TEventRequest>(TEvent genericEvent, CancellationToken cancellationToken) where TEvent : BaseEvent<TEventRequest>;
     }
 }

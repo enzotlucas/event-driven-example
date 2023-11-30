@@ -32,61 +32,70 @@ namespace Example.EventDriven.Application.ExecuteProcess
 
         public async Task<ExecuteProcessResponse> Execute(ExecuteProcessRequest request, CancellationToken cancellationToken)
         {
-            _logger.Log("Starting process execution", LoggerManagerSeverity.INFORMATION, ("request", request));
-            _logger.Log("Validating the request", LoggerManagerSeverity.DEBUG, ("request", request));
-
-            var validation = await _validator.ValidateAsync(request, cancellationToken);
-
-            if (!validation.IsValid)
+            try
             {
-                _logger.Log("Request is not valid", LoggerManagerSeverity.WARNING,
+                _logger.Log("Starting process execution", LoggerManagerSeverity.INFORMATION, ("request", request));
+                _logger.Log("Validating the request", LoggerManagerSeverity.DEBUG, ("request", request));
+
+                var validation = await _validator.ValidateAsync(request, cancellationToken);
+
+                if (!validation.IsValid)
+                {
+                    _logger.Log("Request is not valid", LoggerManagerSeverity.WARNING,
+                            ("request", request),
+                            ("validation", validation));
+
+                    return validation.Adapt<ExecuteProcessResponse>();
+                }
+
+                _logger.Log("Request is valid", LoggerManagerSeverity.DEBUG, ("request", request));
+
+                var process = await _repository.GetByNameAsync(request.Name, cancellationToken);
+
+                if (!process.Exists())
+                {
+                    _logger.Log("Process don't exists", LoggerManagerSeverity.WARNING,
+                            ("request", request),
+                            ("validation", validation));
+
+                    return process.Adapt<ExecuteProcessResponse>();
+                }
+
+                _logger.Log("Process exists", LoggerManagerSeverity.DEBUG,
                         ("request", request),
-                        ("validation", validation));
+                        ("process", process));
 
-                return validation.Adapt<ExecuteProcessResponse>();
-            }
+                do
+                {
+                    _logger.Log("Executing process", LoggerManagerSeverity.DEBUG, ("process", process));
 
-            _logger.Log("Request is valid", LoggerManagerSeverity.DEBUG, ("request", request));
+                    process.Status++;
 
-            var process = await _repository.GetByNameAsync(request.Name, cancellationToken);
+                    await _repository.UpdateAsync(process, cancellationToken);
 
-            if (!process.Exists())
-            {
-                _logger.Log("Process don't exists", LoggerManagerSeverity.WARNING,
+                    _logger.Log("Updated process sucessfully", LoggerManagerSeverity.DEBUG, ("process", process));
+                    _logger.Log("Waiting for a certain time for the process evolution", LoggerManagerSeverity.DEBUG,
+                        ("processExecutionDelayTimeInSeconds", _processExecutionDelayTimeInSeconds));
+
+                    await Task.Delay(_processExecutionDelayTimeInSeconds.AsMiliseconds(), cancellationToken);
+
+                    _logger.Log("Wait for a certain time for the process evolution done", LoggerManagerSeverity.DEBUG,
+                        ("processExecutionDelayTimeInSeconds", _processExecutionDelayTimeInSeconds));
+                }
+                while (process.Status != ProcessStatus.SuccessfullyFinished);
+
+                _logger.Log("Ending process execution", LoggerManagerSeverity.INFORMATION,
                         ("request", request),
-                        ("validation", validation));
+                        ("process", process));
 
-                return process.Adapt<ExecuteProcessResponse>();
+                return request.Adapt<ExecuteProcessResponse>();
             }
-
-            _logger.Log("Process exists", LoggerManagerSeverity.DEBUG, 
-                    ("request", request), 
-                    ("process", process));
-
-            do
+            catch (Exception ex)
             {
-                _logger.Log("Executing process", LoggerManagerSeverity.DEBUG, ("process", process));
-
-                process.Status++;
-
-                await _repository.UpdateAsync(process, cancellationToken);
-
-                _logger.Log("Updated process sucessfully", LoggerManagerSeverity.DEBUG, ("process", process));
-                _logger.Log("Waiting for a certain time for the process evolution", LoggerManagerSeverity.DEBUG,
-                    ("processExecutionDelayTimeInSeconds", _processExecutionDelayTimeInSeconds));
-
-                await Task.Delay(_processExecutionDelayTimeInSeconds.AsMiliseconds(), cancellationToken);
-
-                _logger.Log("Wait for a certain time for the process evolution done", LoggerManagerSeverity.DEBUG,
-                    ("processExecutionDelayTimeInSeconds", _processExecutionDelayTimeInSeconds));
+                _logger.LogException(ex.Message, LoggerManagerSeverity.CRITICAL, ex);
+                throw;
             }
-            while (process.Status != ProcessStatus.SuccessfullyFinished);
-
-            _logger.Log("Ending process execution", LoggerManagerSeverity.INFORMATION, 
-                    ("request", request), 
-                    ("process", process));
-
-            return request.Adapt<ExecuteProcessResponse>();
+           
         }
     }
 }

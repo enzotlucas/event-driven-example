@@ -28,7 +28,7 @@ namespace Example.EventDriven.Infrastructure
         public static IServiceCollection AddEventManager(this IServiceCollection services)
         {
             services.AddScoped<IEventSenderManager, RabbitMqSenderManager>();
-            services.AddScoped<IEventConsumerManager, RabbitMqConsumerManager>();
+            services.AddSingleton<IEventConsumerManager, RabbitMqConsumerManager>();
 
             return services;
         }

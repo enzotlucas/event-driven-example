@@ -49,15 +49,18 @@ namespace Example.EventDriven.API.Features.V1.Controllers
         /// <response code="404">The request don't exists</response>
         /// <response code="422">The request body was not valid</response>
         /// <response code="500">The request has a unexpected error</response>
-        [HttpGet("status/{id:guid}")]
+        [HttpGet("status/{RequestId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK, StatusCode = StatusCodes.Status200OK, Type = typeof(GetRequestStatusResponse<ProcessEntity>))]
-        [ProducesResponseType(StatusCodes.Status204NoContent, StatusCode = StatusCodes.Status204NoContent, Type = typeof(GetRequestStatusResponse<ProcessEntity>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, StatusCode = StatusCodes.Status404NotFound, Type = typeof(GetRequestStatusResponse<ProcessEntity>))]
+        [ProducesResponseType(StatusCodes.Status204NoContent, StatusCode = StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, StatusCode = StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, StatusCode = StatusCodes.Status422UnprocessableEntity, Type = typeof(GetRequestStatusResponse<ProcessEntity>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, StatusCode = StatusCodes.Status500InternalServerError, Type = typeof(GetRequestStatusResponse<ProcessEntity>))]
         public async Task<IActionResult> GetRequestStatus([FromRoute] GetRequestStatusRequest request, CancellationToken cancellationToken)
         {
             var response = await _getRequestStatus.Get<ProcessEntity>(request, cancellationToken);
+
+            if(response.StatusCode == StatusCodes.Status204NoContent)            
+                return NoContent();            
 
             return StatusCode(response.StatusCode, response.Data);
         }

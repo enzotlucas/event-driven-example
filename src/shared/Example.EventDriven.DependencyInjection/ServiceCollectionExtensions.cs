@@ -17,7 +17,7 @@ namespace Example.EventDriven.DependencyInjection
         {
             return services.AddApiConfiguration()
                            .AddSwaggerConfiguration()
-                           .AddApplicationConfiguration()
+                           .AddApiApplicationConfiguration()
                            .AddLoggingManager()
                            .AddEventManager()
                            .AddMemoryCacheManager(configuration)
@@ -56,7 +56,7 @@ namespace Example.EventDriven.DependencyInjection
 
         public static IServiceCollection AddWorkerDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddApplicationConfiguration()
+            return services.AddWorkerApplicationConfiguration()
                            .AddLoggingManager()
                            .AddEventManager()
                            .AddDatabase(configuration);

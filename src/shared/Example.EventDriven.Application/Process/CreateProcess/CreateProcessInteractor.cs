@@ -1,8 +1,6 @@
 ﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.ExecuteProcess.Boundaries;
-using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
-using Example.EventDriven.Domain.Extensions;
 using Example.EventDriven.Domain.Gateways.Event;
 using Example.EventDriven.Domain.Gateways.Logger;
 using Example.EventDriven.Domain.Repositories;
@@ -37,10 +35,10 @@ namespace Example.EventDriven.Application.CreateProcess
 
             var validation = await _validator.ValidateAsync(request, cancellationToken);
 
-            if(!validation.IsValid)
+            if (!validation.IsValid)
             {
-                _logger.Log("Request is not valid", LoggerManagerSeverity.WARNING, 
-                        ("request", request), 
+                _logger.Log("Request is not valid", LoggerManagerSeverity.WARNING,
+                        ("request", request),
                         ("validation", validation));
 
                 return validation.Adapt<CreateProcessResponse>();
@@ -57,7 +55,10 @@ namespace Example.EventDriven.Application.CreateProcess
                         ("request", request),
                         ("validation", validation));
 
-                return existingProcess.Adapt<CreateProcessResponse>();
+                return new CreateProcessResponse
+                {
+                    Value = new RequestEntity<ProcessEntity>(ResponseMessage.ProcessAlreadyExists, RequestStatus.InvalidInformation, existingProcess)
+                };
             }
 
             _logger.Log("Process don't exists, continuing with creation", LoggerManagerSeverity.DEBUG, ("name", request.Name));
@@ -74,22 +75,24 @@ namespace Example.EventDriven.Application.CreateProcess
                         ("request", request),
                         ("validation", validation));
 
-                var response = request.Adapt<CreateProcessResponse>();
-                response.Value.Status = RequestStatus.InfrastructureError;
-                response.Value.Message = ResponseMessage.ErrorCreatingProcess;
-
-                return response;
+                return new CreateProcessResponse
+                {
+                    Value = new RequestEntity<ProcessEntity>(ResponseMessage.ProcessAlreadyExists, RequestStatus.InvalidInformation)
+                };
             }
 
             _logger.Log("Process created on database", LoggerManagerSeverity.DEBUG, ("process", process));
             _logger.Log("Sending execute process event", LoggerManagerSeverity.DEBUG, ("request", request));
 
             await _eventManager.Send<ExecuteProcessEvent, ExecuteProcessRequest>(request.Adapt<ExecuteProcessEvent>(), cancellationToken);
-            
+
             _logger.Log("Event execute process sent", LoggerManagerSeverity.DEBUG, ("request", request), ("requestId", request.RequestId));
             _logger.Log("Ending process creation", LoggerManagerSeverity.INFORMATION, ("request", request), ("entity", entity));
 
-            return entity.Adapt<CreateProcessResponse>();
+            return new CreateProcessResponse
+            {
+                Value = new RequestEntity<ProcessEntity>(ResponseMessage.Default, RequestStatus.Processing, entity)
+            };
         }
     }
 }

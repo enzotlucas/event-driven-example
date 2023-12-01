@@ -52,6 +52,7 @@ namespace Example.EventDriven.Application.Process.CreateProcess
             var createProcessService = scope.ServiceProvider.GetRequiredService<ICreateProcess>();
 
             _logger.Log("Begin executing Create Process business rule", LoggerManagerSeverity.DEBUG, ("request", request));
+            request.Value.RequestId = request.RequestId;
             var response = await createProcessService.Create(request.Value, cancellationToken);
             response.RequestId = request.RequestId;
             _logger.Log("End executing Create Process business rule", LoggerManagerSeverity.DEBUG, 

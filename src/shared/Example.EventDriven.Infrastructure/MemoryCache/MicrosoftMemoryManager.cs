@@ -18,7 +18,11 @@ namespace Example.EventDriven.Infrastructure.MemoryCache
 
         public async Task CreateOrUpdate(Guid requestId, object data, CancellationToken cancellationToken)
         {
-            await Task.Run(() => _memoryCache.Set(requestId, data, _persistenceOptions), cancellationToken);
+            await Task.Run(() =>
+            {
+                _memoryCache.Set(requestId, data, _persistenceOptions);
+            }, 
+            cancellationToken);
         }
 
         public async Task<bool> ExistsAsync(Guid requestId, CancellationToken cancellationToken)

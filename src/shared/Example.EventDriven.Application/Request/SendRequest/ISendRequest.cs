@@ -1,6 +1,6 @@
-﻿using Example.EventDriven.Application.SendEvent.Boundaries;
+﻿using Example.EventDriven.Application.Request.SendRequest.Boundaries;
 
-namespace Example.EventDriven.Application.SendEvent
+namespace Example.EventDriven.Application.Request.SendRequest
 {
     public interface ISendRequest
     {

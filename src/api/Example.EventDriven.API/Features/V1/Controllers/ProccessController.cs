@@ -2,8 +2,8 @@
 using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.GetRequestStatus;
 using Example.EventDriven.Application.GetRequestStatus.Boundaries;
-using Example.EventDriven.Application.SendEvent;
-using Example.EventDriven.Application.SendEvent.Boundaries;
+using Example.EventDriven.Application.Request.SendRequest;
+using Example.EventDriven.Application.Request.SendRequest.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +34,7 @@ namespace Example.EventDriven.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status202Accepted, StatusCode = StatusCodes.Status202Accepted, Type = typeof(CreateProcessResponse))]
         public async Task<IActionResult> Post(CreateProcessRequest request, CancellationToken cancellationToken)
         {
-            var response = await _sendRequest.Send(request.Adapt<SendEventRequest>(), cancellationToken);
+            var response = await _sendRequest.Send(request.Adapt<SendEventRequest>(), AsCombinedCancellationToken(cancellationToken));
 
             return Accepted(response);
         }
@@ -57,7 +57,7 @@ namespace Example.EventDriven.API.Features.V1.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError, StatusCode = StatusCodes.Status500InternalServerError, Type = typeof(GetRequestStatusResponse<ProcessEntity>))]
         public async Task<IActionResult> GetRequestStatus([FromRoute] GetRequestStatusRequest request, CancellationToken cancellationToken)
         {
-            var response = await _getRequestStatus.Get<ProcessEntity>(request, cancellationToken);
+            var response = await _getRequestStatus.Get<ProcessEntity>(request, AsCombinedCancellationToken(cancellationToken));
 
             if(response.StatusCode == StatusCodes.Status204NoContent)            
                 return NoContent();            

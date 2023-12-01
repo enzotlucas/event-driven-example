@@ -1,11 +1,11 @@
 ﻿using Example.EventDriven.Application.ExecuteProcess.Boundaries;
 using Example.EventDriven.Application.Request.UpdateRequest.Boundaries;
-using Example.EventDriven.Application.SendEvent.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.ValueObjects;
 using Mapster;
 using System.Diagnostics.CodeAnalysis;
 using FluentValidation.Results;
+using Example.EventDriven.Application.Request.SendRequest.Boundaries;
 
 namespace Example.EventDriven.Application.CreateProcess.Boundaries
 {
@@ -40,12 +40,7 @@ namespace Example.EventDriven.Application.CreateProcess.Boundaries
 
             TypeAdapterConfig<ProcessEntity, CreateProcessResponse>
                 .NewConfig()
-                .Map(destination => destination.Value, source => new RequestEntity<ProcessEntity>
-                (
-                    source.Exists() ? ResponseMessage.ProcessAlreadyExists : ResponseMessage.Default,
-                    source.Exists() ? RequestStatus.InvalidInformation : RequestStatus.Processing,
-                    source
-                ));
+                .Map(destination => destination.Value, source => new RequestEntity<ProcessEntity>());
 
             TypeAdapterConfig<CreateProcessResponse, UpdateRequestStatusEvent>
                 .NewConfig()

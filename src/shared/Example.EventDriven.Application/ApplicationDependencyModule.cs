@@ -3,9 +3,9 @@ using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.ExecuteProcess;
 using Example.EventDriven.Application.ExecuteProcess.Boundaries;
 using Example.EventDriven.Application.GetRequestStatus;
+using Example.EventDriven.Application.Request.SendRequest;
+using Example.EventDriven.Application.Request.SendRequest.Boundaries;
 using Example.EventDriven.Application.Request.UpdateRequest;
-using Example.EventDriven.Application.SendEvent;
-using Example.EventDriven.Application.SendEvent.Boundaries;
 using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,7 +59,6 @@ namespace Example.EventDriven.Application
         {
             CreateProcessMapper.Add();
             ExecuteProcessMapper.Add();
-
             SendRequestMapper.Add();
 
             TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());

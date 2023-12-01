@@ -1,7 +1,7 @@
-﻿using Example.EventDriven.Application.SendEvent.Boundaries;
+﻿using Example.EventDriven.Application.Request.SendRequest.Boundaries;
 using FluentValidation;
 
-namespace Example.EventDriven.Application.SendEvent
+namespace Example.EventDriven.Application.Request.SendRequest
 {
     public sealed class SendRequestValidator : AbstractValidator<SendEventRequest>
     {

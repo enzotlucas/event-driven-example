@@ -2,7 +2,7 @@
 using Mapster;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Example.EventDriven.Application.SendEvent.Boundaries
+namespace Example.EventDriven.Application.Request.SendRequest.Boundaries
 {
     [ExcludeFromCodeCoverage]
     public static class SendRequestMapper

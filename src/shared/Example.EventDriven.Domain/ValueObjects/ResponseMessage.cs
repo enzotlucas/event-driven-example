@@ -5,6 +5,8 @@
         Default,
         ProcessAlreadyExists,
         ErrorCreatingProcess,
-        ProcessDontExists
+        ProcessDontExists,
+        InvalidName,
+        InvalidDescription
     }
 }

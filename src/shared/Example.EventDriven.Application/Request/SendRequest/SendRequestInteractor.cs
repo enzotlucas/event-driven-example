@@ -1,6 +1,6 @@
 ﻿using Example.EventDriven.Application.CreateProcess.Boundaries;
 using Example.EventDriven.Application.ExecuteProcess.Boundaries;
-using Example.EventDriven.Application.SendEvent.Boundaries;
+using Example.EventDriven.Application.Request.SendRequest.Boundaries;
 using Example.EventDriven.Domain.Entitites;
 using Example.EventDriven.Domain.Extensions;
 using Example.EventDriven.Domain.Gateways.Event;
@@ -9,7 +9,7 @@ using Example.EventDriven.Domain.Gateways.MemoryCache;
 using FluentValidation;
 using Mapster;
 
-namespace Example.EventDriven.Application.SendEvent
+namespace Example.EventDriven.Application.Request.SendRequest
 {
     public sealed class SendRequestInteractor : ISendRequest
     {
@@ -19,9 +19,9 @@ namespace Example.EventDriven.Application.SendEvent
         private readonly IMemoryCacheManager _memoryCache;
 
         public SendRequestInteractor(
-            ILoggerManager logger, 
-            IEventSenderManager eventManager, 
-            IValidator<SendEventRequest> validator, 
+            ILoggerManager logger,
+            IEventSenderManager eventManager,
+            IValidator<SendEventRequest> validator,
             IMemoryCacheManager memoryCache)
         {
             _logger = logger;
